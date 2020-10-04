@@ -1,0 +1,4 @@
+include ':entity'
+include ':specification'
+include ':app'
+rootProject.name = "Dopaminka"
