@@ -1,5 +1,9 @@
 package ru.dopaminka.entity
 
-class Letter {
+import sun.misc.Resource
 
+class Letter {
+    fun setSound() {
+
+    }
 }
