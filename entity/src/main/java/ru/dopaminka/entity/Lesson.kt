@@ -5,6 +5,8 @@ import java.security.CodeSource
 
 class Lesson {
 
+    lateinit var task: Task
+    var completed: Boolean = false
     fun addTask() {
 
     }
