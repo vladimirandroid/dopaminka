@@ -2,7 +2,7 @@ package ru.dopaminka.entity
 
 import java.awt.Image
 
-class Illustration {
-    lateinit var image: Image
-    var sound : Int = 0;
+class Illustration(_image: Int, _sound: Int) {
+    val image: Int = _image
+    val sound: Int = _sound
 }
