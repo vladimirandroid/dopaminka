@@ -14,8 +14,8 @@ import static org.junit.Assert.assertTrue;
 
 public class AlphabetSteps {
 
-    private static final String NEW_SOUND = "new_a_sound.mp3";
-    private static final String SOUND = "a_sound.mp3";
+    private static final int NEW_SOUND = 1;
+    private static final int SOUND = 0;
 
     private Letter letter;
     private Alphabet alphabet;
@@ -39,7 +39,7 @@ public class AlphabetSteps {
 
     @Given("есть буква А")
     public void theLetterAExists() {
-        letter = new Letter('А', SOUND);
+        letter = new Letter("А", 0);
     }
 
     @And("есть алфавит")
@@ -61,7 +61,7 @@ public class AlphabetSteps {
 
     @When("админ создаёт букву А с указанием произношения")
     public void adminCreatesLetterA() {
-        letter = new Letter('А', SOUND);
+        letter = new Letter("А", SOUND);
     }
 
     @When("админ создаёт алфавит с указанием языка")
@@ -93,7 +93,7 @@ public class AlphabetSteps {
     @Then("буква А появляется")
     public void theLetterAAppears() {
         assertNotNull(letter);
-        assertEquals(letter.getLetter(), 'А');
+        assertEquals(letter.getText(), "А");
     }
 
     @Then("дубликат буквы А не появился")
