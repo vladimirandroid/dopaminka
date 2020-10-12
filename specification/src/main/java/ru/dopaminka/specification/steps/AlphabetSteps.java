@@ -16,6 +16,7 @@ public class AlphabetSteps {
 
     private static final int NEW_SOUND = 1;
     private static final int SOUND = 0;
+    private static final String DEFAULT_LETTER_TEXT = "А";
 
     private Letter letter;
     private Alphabet alphabet;
@@ -39,7 +40,7 @@ public class AlphabetSteps {
 
     @Given("есть буква А")
     public void theLetterAExists() {
-        letter = new Letter("А", 0);
+        letter = new Letter(DEFAULT_LETTER_TEXT, 0);
     }
 
     @And("есть алфавит")
@@ -61,7 +62,7 @@ public class AlphabetSteps {
 
     @When("админ создаёт букву А с указанием произношения")
     public void adminCreatesLetterA() {
-        letter = new Letter("А", SOUND);
+        letter = new Letter(DEFAULT_LETTER_TEXT, SOUND);
     }
 
     @When("админ создаёт алфавит с указанием языка")
@@ -93,7 +94,7 @@ public class AlphabetSteps {
     @Then("буква А появляется")
     public void theLetterAAppears() {
         assertNotNull(letter);
-        assertEquals(letter.getText(), "А");
+        assertEquals(letter.getText(), DEFAULT_LETTER_TEXT);
     }
 
     @Then("дубликат буквы А не появился")
