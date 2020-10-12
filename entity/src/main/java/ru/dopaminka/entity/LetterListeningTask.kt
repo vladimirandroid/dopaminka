@@ -1,3 +1,4 @@
 package ru.dopaminka.entity
 
-class LetterListeningTask : Task()
+class LetterListeningTask(_letter: Letter) : Task()
+    var letter: Letter = TODO()

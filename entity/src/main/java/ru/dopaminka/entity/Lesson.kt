@@ -1,13 +1,13 @@
 package ru.dopaminka.entity
 
-class Lesson{
-    private var tasks: MutableList<Task> = mutableListOf()
+import sun.misc.Resource
+import java.security.CodeSource
 
-    fun addTask(task: Task){
-        tasks.add(task)
-    }
+class Lesson {
 
-    fun removeTask(task: Task){
-        tasks.remove(task);
+    lateinit var task: Task
+    var completed: Boolean = false
+    fun addTask() {
+
     }
 }

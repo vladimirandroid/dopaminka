@@ -1,3 +1,12 @@
 package ru.dopaminka.entity
 
-data class Letter(val letter: Char, var sound: String)
+import sun.misc.Resource
+import kotlin.properties.Delegates
+
+class Letter(_text: String, _sound: Int) {
+    var text = _text
+    var sound = _sound
+    fun setSound() {
+
+    }
+}
