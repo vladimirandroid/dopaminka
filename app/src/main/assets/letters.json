@@ -1,12 +1,13 @@
-[
-  {
-    "id"    : "1",
-    "name"  : "A",
-    "sound" : "A"
-  },
-  {
-    "id"    : "2",
-    "name"  : "Б",
-    "sound" : "Б"
-  }
-]
+{
+  "language": "ru",
+  "letters": [
+    {
+      "text": "A",
+      "soundFileName": "01.mp3"
+    },
+    {
+      "text": "Б",
+      "soundFileName": "02.mp3"
+    }
+  ]
+}
