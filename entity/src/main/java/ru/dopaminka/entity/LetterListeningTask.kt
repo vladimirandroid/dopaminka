@@ -1,4 +1,5 @@
 package ru.dopaminka.entity
 
-class LetterListeningTask(_letter: Letter) : Task()
-    var letter: Letter = TODO()
+import ru.dopaminka.entity.common.Identity
+
+class LetterListeningTask(id: Identity, val letter: Letter) : Task(id)

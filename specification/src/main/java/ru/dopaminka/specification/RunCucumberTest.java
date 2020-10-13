@@ -11,5 +11,7 @@ import io.cucumber.junit.CucumberOptions;
         features = {"src/main/res/features/*"},
         glue = {"ru.dopaminka.specification.steps.*"}
 )
+
+
 public class RunCucumberTest {
 }

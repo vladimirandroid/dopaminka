@@ -14,8 +14,8 @@ import static org.junit.Assert.assertTrue;
 
 public class AlphabetSteps {
 
-    private static final int NEW_SOUND = 1;
-    private static final int SOUND = 0;
+    private static final String NEW_SOUND_FILENAME = "02.mp3";
+    private static final String SOUND_FILENAME = "01.mp3";
     private static final String DEFAULT_LETTER_TEXT = "А";
 
     private Letter letter;
@@ -31,7 +31,7 @@ public class AlphabetSteps {
 
     @Given("у буквы есть произношение")
     public void theLetterHasASound() {
-        assertNotNull(letter.getSound());
+        assertNotNull(letter.getSoundFileName());
     }
 
     @Given("буквы А нет")
@@ -40,7 +40,7 @@ public class AlphabetSteps {
 
     @Given("есть буква А")
     public void theLetterAExists() {
-        letter = new Letter(DEFAULT_LETTER_TEXT, 0);
+        letter = new Letter(DEFAULT_LETTER_TEXT, SOUND_FILENAME);
     }
 
     @And("есть алфавит")
@@ -57,15 +57,15 @@ public class AlphabetSteps {
 
     @When("админ меняет озвучку букве")
     public void adminSetTheSoundForTheLetter() {
-        letter.setSound(NEW_SOUND);
+        letter.setSoundFileName(NEW_SOUND_FILENAME);
     }
 
     @When("админ создаёт букву А с указанием произношения")
     public void adminCreatesLetterA() {
-        letter = new Letter(DEFAULT_LETTER_TEXT, SOUND);
+        letter = new Letter(DEFAULT_LETTER_TEXT, SOUND_FILENAME);
     }
 
-    @When("админ создаёт алфавит с указанием языка")
+    @When("админ создаёт алфавит для русского языка")
     public void adminCreatesAlphabetForLanguage() {
         alphabet = new Alphabet("ru");
     }
@@ -88,18 +88,13 @@ public class AlphabetSteps {
 
     @Then("озвучка буквы заменяется на новую")
     public void theLetterSoundIsReplacedToTheNewOne() {
-        assertEquals(letter.getSound(), NEW_SOUND);
+        assertEquals(letter.getSoundFileName(), NEW_SOUND_FILENAME);
     }
 
     @Then("буква А появляется")
     public void theLetterAAppears() {
         assertNotNull(letter);
         assertEquals(letter.getText(), DEFAULT_LETTER_TEXT);
-    }
-
-    @Then("дубликат буквы А не появился")
-    public void duplicateHasNotAppeared() {
-        //can't be automated through entity layer
     }
 
     @Then("алфавит появляется")
@@ -125,5 +120,15 @@ public class AlphabetSteps {
     @Then("В алфавите все еще одна буква")
     public void theAlphabetStillContainsOnlyLetter() {
         assertEquals(1, alphabet.getLetters().size());
+    }
+
+    @And("в алфавите нет букв")
+    public void thereAreNoLettersInTheAlphabet() {
+        assertTrue(alphabet.getLetters().isEmpty());
+    }
+
+    @And("язык алфавита - русский")
+    public void theLanguageOfTheAlphabetIsRussian() {
+        assertEquals("ru", alphabet.getLanguage());
     }
 }

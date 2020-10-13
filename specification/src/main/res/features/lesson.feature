@@ -1,4 +1,4 @@
-Feature: работа с заданиями
+Feature: работа с уроками
 
   @Admin
   Scenario: Создание урока

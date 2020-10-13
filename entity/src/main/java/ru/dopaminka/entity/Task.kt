@@ -1,11 +1,17 @@
 package ru.dopaminka.entity
 
-abstract class Task
+import ru.dopaminka.entity.common.Identity
 
-var completed: Boolean = false
-lateinit var illustrations: Illustration
+abstract class Task(val id: Identity) {
+    private var _illustrations = mutableListOf<Illustration>()
+
+    var completed = false
+    val illustrations: List<Illustration>
+        get() = _illustrations
 
 
-fun complete() {}
-fun addIllustration() {}
-fun removeillustrtion() {}
+    fun complete(): TaskProgress = TaskProgress(id, true)
+    fun addIllustration(illustration: Illustration) {}
+    fun removeIllustrtion(illustration: Illustration) {}
+}
+
