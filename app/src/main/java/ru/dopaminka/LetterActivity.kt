@@ -15,11 +15,8 @@ class LetterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_letter)
 
-        val createAlphabet: CreateAlphabet by inject()
-
         val program = get<GetProgram>().execute(GetProgram.Params(Alphabet.Language.ru))
         val lesson = get<GetLesson>().execute(program.lessons.first().id)
         Log.d(this.localClassName, "lesson = $lesson");
-
     }
 }
