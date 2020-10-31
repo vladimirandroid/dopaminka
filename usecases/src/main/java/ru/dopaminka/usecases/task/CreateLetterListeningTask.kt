@@ -1,11 +1,10 @@
 package ru.dopaminka.usecases.task
 
-import ru.dopaminka.entity.Alphabet
-import ru.dopaminka.entity.tasks.Task
 import ru.dopaminka.entity.common.Identity
 import ru.dopaminka.entity.tasks.LetterListeningTask
+import ru.dopaminka.entity.tasks.Task
+import ru.dopaminka.usecases.Repository
 import ru.dopaminka.usecases.UseCase
-import ru.dopaminka.usecases.repository.Repository
 
 /**
  * input = lesson title
@@ -20,5 +19,5 @@ class CreateLetterListeningTask(private val taskRepository: Repository<Task>) :
         return id
     }
 
-    class Params(val letter: Alphabet.Letter)
+    class Params(val letter: String)
 }

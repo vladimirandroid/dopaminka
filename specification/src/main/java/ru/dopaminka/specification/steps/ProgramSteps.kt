@@ -5,7 +5,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.specification.State
-import ru.dopaminka.usecases.program.AddProgram
+import ru.dopaminka.usecases.program.CreateProgram
 import ru.dopaminka.usecases.program.GetProgram
 import ru.dopaminka.usecases.program.SetProgramLessons
 
@@ -14,18 +14,18 @@ class ProgramSteps : En {
 
     init {
         Given("есть программа для русского языка") {
-            AddProgram(State.programRepository).execute(Alphabet.Language.ru)
+            CreateProgram(State.programRepository).execute(Alphabet.Language.ru)
         }
         And("урок входит в программу") {
             SetProgramLessons(State.programRepository, State.lessonRepository).execute(
-                SetProgramLessons.Params("ru", listOf(State.lessonId!!))
+                SetProgramLessons.Params(Alphabet.Language.ru, listOf(State.lessonId!!))
             )
         }
         When("ученик запрашивает программу для русского языка") {
             programView = GetProgram(
                 State.programRepository,
                 State.lessonRepository
-            ).execute(GetProgram.Params("ru"))
+            ).execute(GetProgram.Params(Alphabet.Language.ru))
         }
         Then("ученик видит программу: язык и список уроков") {
             assertNotNull(programView)

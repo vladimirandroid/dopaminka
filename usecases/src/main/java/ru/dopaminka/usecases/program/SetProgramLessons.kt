@@ -1,10 +1,11 @@
 package ru.dopaminka.usecases.program
 
+import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.entity.Lesson
 import ru.dopaminka.entity.Program
 import ru.dopaminka.entity.common.Identity
+import ru.dopaminka.usecases.Repository
 import ru.dopaminka.usecases.UseCase
-import ru.dopaminka.usecases.repository.Repository
 
 /**
  * Input is language code like "ru", "en", "fr" and so on
@@ -14,7 +15,7 @@ class SetProgramLessons(
     private val lessonRepository: Repository<Lesson>
 ) : UseCase<SetProgramLessons.Params, Unit>() {
     override fun execute(params: Params) {
-        val program = programRepository.get(Identity(params.language))
+        val program = programRepository.get(Identity(params.language.toString()))
             ?: throw Exception("Program not found")
 
         //remove not existing lessons
@@ -25,5 +26,5 @@ class SetProgramLessons(
         programRepository.save(program)
     }
 
-    class Params(val language: String, val lessonsIdentities: List<Identity>)
+    class Params(val language: Alphabet.Language, val lessonsIdentities: List<Identity>)
 }

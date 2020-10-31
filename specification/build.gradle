@@ -36,12 +36,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'io.cucumber:cucumber-java8:6.8.1'
-    implementation 'io.cucumber:cucumber-junit:6.8.1'
+    implementation 'io.cucumber:cucumber-java8:6.8.2'
+    implementation 'io.cucumber:cucumber-junit:6.8.2'
     implementation project(path: ':usecases')
     implementation project(path: ':entity')
     implementation project(path: ':persistence')
-//    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.1'
 }
 
 sourceCompatibility = "1.7"

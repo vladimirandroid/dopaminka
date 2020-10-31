@@ -2,7 +2,7 @@ package ru.dopaminka.persistence
 
 import ru.dopaminka.entity.common.Entity
 import ru.dopaminka.entity.common.Identity
-import ru.dopaminka.usecases.repository.Repository
+import ru.dopaminka.usecases.Repository
 
 class InMemoryRepositoryImpl<T : Entity> : Repository<T>() {
 
@@ -26,5 +26,9 @@ class InMemoryRepositoryImpl<T : Entity> : Repository<T>() {
 
     override fun clear() {
         entities.clear()
+    }
+
+    override fun all(): List<T> {
+        return entities.values.toList()
     }
 }

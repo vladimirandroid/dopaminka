@@ -8,10 +8,7 @@ import ru.dopaminka.specification.State
 import ru.dopaminka.usecases.alphabet.AddLetter
 import ru.dopaminka.usecases.alphabet.CreateAlphabet
 import ru.dopaminka.usecases.alphabet.GetAlphabet
-import ru.dopaminka.usecases.task.AddIllustration
-import ru.dopaminka.usecases.task.CreateLetterListeningTask
-import ru.dopaminka.usecases.task.GetTask
-import ru.dopaminka.usecases.task.RemoveIllustration
+import ru.dopaminka.usecases.task.*
 
 class TaskSteps : En {
     init {
@@ -22,7 +19,6 @@ class TaskSteps : En {
                 AddLetter.Params(
                     State.alphabetId!!,
                     "А",
-                    "a_sound.mp3"
                 )
             )
             val alphabet = GetAlphabet(State.alphabetRepository).execute(State.alphabetId!!)
@@ -42,7 +38,6 @@ class TaskSteps : En {
                 AddLetter.Params(
                     State.alphabetId!!,
                     "А",
-                    "a_sound.mp3"
                 )
             )
             val alphabet = GetAlphabet(State.alphabetRepository).execute(State.alphabetId!!)
@@ -93,6 +88,15 @@ class TaskSteps : En {
         Then("иллюстрация пропадает из задания") {
             val task = GetTask(State.taskRepository).execute(State.taskId!!)
             assertEquals(0, task.illustrations.size)
+        }
+        When("админ запрашивает непривязанные к урокам задания") {
+            State.unassignedTasks =
+                GetUnassignedTasks(State.taskRepository, State.lessonRepository).execute(Unit)
+        }
+        Then("он видит список с непривязанным к урокам заданием") {
+            assertNotNull(State.unassignedTasks)
+            assertEquals(1, State.unassignedTasks!!.size)
+            assertEquals(State.taskId, State.unassignedTasks!![0].id)
         }
     }
 }

@@ -80,5 +80,14 @@ class LessonSteps : En {
                 State.taskRepository
             ).execute(RemoveTask.Params(State.lessonId!!, State.taskId!!))
         }
+        When("админ запрашивает непривязанные к программам уроки") {
+            State.unassignedLessons =
+                GetUnassignedLessons(State.programRepository, State.lessonRepository).execute(Unit)
+        }
+        Then("он видит список с непривязанным к программам уроком") {
+            assertNotNull(State.unassignedLessons)
+            assertEquals(1, State.unassignedLessons!!.size)
+            assertEquals(State.lessonId, State.unassignedLessons!![0].id)
+        }
     }
 }

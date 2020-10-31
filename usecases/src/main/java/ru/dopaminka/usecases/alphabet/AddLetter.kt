@@ -2,8 +2,8 @@ package ru.dopaminka.usecases.alphabet
 
 import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.entity.common.Identity
+import ru.dopaminka.usecases.Repository
 import ru.dopaminka.usecases.UseCase
-import ru.dopaminka.usecases.repository.Repository
 
 /**
  * input = lesson title
@@ -17,8 +17,8 @@ class AddLetter(
         val alphabet =
             alphabetRepository.get(params.alphabetId) ?: throw Exception("Alphabet not found")
 
-        alphabet.addLetter(Alphabet.Letter(params.text, params.soundFileName))
+        alphabet.addLetter(params.letter)
     }
 
-    class Params(val alphabetId: Identity, val text: String, val soundFileName: String)
+    class Params(val alphabetId: Identity, val letter: String)
 }

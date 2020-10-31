@@ -3,7 +3,7 @@ package ru.dopaminka.usecases.alphabet
 import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.entity.common.Identity
 import ru.dopaminka.usecases.UseCase
-import ru.dopaminka.usecases.repository.Repository
+import ru.dopaminka.usecases.Repository
 
 /**
  * input = lesson title

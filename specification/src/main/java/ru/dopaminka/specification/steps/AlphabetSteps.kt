@@ -2,10 +2,14 @@ package ru.dopaminka.specification.steps
 
 import io.cucumber.java8.En
 import io.cucumber.java8.HookNoArgsBody
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.specification.State
-import ru.dopaminka.usecases.alphabet.*
+import ru.dopaminka.usecases.alphabet.AddLetter
+import ru.dopaminka.usecases.alphabet.CreateAlphabet
+import ru.dopaminka.usecases.alphabet.GetAlphabet
+import ru.dopaminka.usecases.alphabet.RemoveLetter
 
 class AlphabetSteps : En {
 
@@ -37,7 +41,6 @@ class AlphabetSteps : En {
                 AddLetter.Params(
                     State.alphabetId!!,
                     "А",
-                    "sound_a.mp3"
                 )
             )
         }
@@ -50,7 +53,6 @@ class AlphabetSteps : En {
                 AddLetter.Params(
                     State.alphabetId!!,
                     "А",
-                    "sound_a.mp3"
                 )
             )
         }
@@ -59,7 +61,6 @@ class AlphabetSteps : En {
                 RemoveLetter.Params(
                     State.alphabetId!!,
                     "А",
-                    "sound_a.mp3"
                 )
             )
         }
@@ -73,7 +74,6 @@ class AlphabetSteps : En {
                     AddLetter.Params(
                         State.alphabetId!!,
                         "А",
-                        "sound_a.mp3"
                     )
                 )
             } catch (e: Exception) {
@@ -87,29 +87,9 @@ class AlphabetSteps : En {
         And("произошла ошибка") {
             assertNotNull(exception)
         }
-        When("админ меняет озвучку букве") {
-            UpdateSound(State.alphabetRepository).execute(
-                UpdateSound.Params(
-                    State.alphabetId!!,
-                    "А",
-                    "b_sound.mp3"
-                )
-            )
-        }
         And("в алфавите осталась одна буква") {
             State.alphabetView = GetAlphabet(State.alphabetRepository).execute(State.alphabetId!!)
             assertEquals(1, State.alphabetView!!.letters.size)
-        }
-        Then("озвучка буквы заменяется на новую") {
-            State.alphabetView = GetAlphabet(State.alphabetRepository).execute(State.alphabetId!!)
-            val letter = State.alphabetView!!.letters[0]
-            assertEquals("А", letter.text)
-            assertEquals("b_sound.mp3", letter.soundFileName)
-        }
-        And("у буквы есть произношение") {
-            State.alphabetView = GetAlphabet(State.alphabetRepository).execute(State.alphabetId!!)
-            val letter = State.alphabetView!!.letters[0]
-            assertTrue(letter.soundFileName.isNotEmpty())
         }
     }
 }

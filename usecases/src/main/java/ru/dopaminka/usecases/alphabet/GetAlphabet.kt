@@ -2,8 +2,8 @@ package ru.dopaminka.usecases.alphabet
 
 import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.entity.common.Identity
+import ru.dopaminka.usecases.Repository
 import ru.dopaminka.usecases.UseCase
-import ru.dopaminka.usecases.repository.Repository
 
 /**
  * input = lesson title
@@ -23,9 +23,9 @@ class GetAlphabet(
         )
     }
 
-    class AlphabetView(
+    data class AlphabetView(
         val id: Identity,
         val language: Alphabet.Language,
-        val letters: List<Alphabet.Letter>
+        val letters: List<String>
     )
 }
