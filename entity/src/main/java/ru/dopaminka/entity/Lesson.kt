@@ -1,13 +1,21 @@
 package ru.dopaminka.entity
 
-import sun.misc.Resource
-import java.security.CodeSource
+import ru.dopaminka.entity.common.Entity
+import ru.dopaminka.entity.common.Identity
+import ru.dopaminka.entity.tasks.Task
 
-class Lesson {
+class Lesson(id: Identity, val title: String) : Entity(id) {
 
-    lateinit var task: Task
-    var completed: Boolean = false
-    fun addTask() {
+    private val _tasksIds = mutableListOf<Identity>()
 
+    val tasksIds: List<Identity>
+        get() = _tasksIds
+
+    fun addTask(task: Task) {
+        _tasksIds.add(task.id)
+    }
+
+    fun removeTask(task: Task) {
+        _tasksIds.remove(task.id)
     }
 }

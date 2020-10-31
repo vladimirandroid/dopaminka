@@ -1,8 +1,7 @@
-//apply plugin: 'java-library'
-//apply plugin: 'kotlin'
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
 
 android {
     compileSdkVersion 30
@@ -34,15 +33,14 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'io.cucumber:cucumber-java8:6.8.1'
-    implementation 'io.cucumber:cucumber-junit:6.8.1'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation project(path: ':usecases')
     implementation project(path: ':entity')
-    implementation project(path: ':persistence')
-//    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"

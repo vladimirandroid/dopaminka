@@ -1,69 +1,98 @@
 package ru.dopaminka.specification.steps
 
-import io.cucumber.java.Before
-import io.cucumber.java.en.And
-import io.cucumber.java.en.Given
-import io.cucumber.java.en.Then
-import io.cucumber.java.en.When
+import io.cucumber.java8.En
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import ru.dopaminka.entity.Illustration
-import ru.dopaminka.entity.Task
-import ru.dopaminka.entity.common.Identity
-import ru.dopaminka.specification.STATE
+import ru.dopaminka.entity.Alphabet
+import ru.dopaminka.specification.State
+import ru.dopaminka.usecases.alphabet.AddLetter
+import ru.dopaminka.usecases.alphabet.CreateAlphabet
+import ru.dopaminka.usecases.alphabet.GetAlphabet
+import ru.dopaminka.usecases.task.AddIllustration
+import ru.dopaminka.usecases.task.CreateLetterListeningTask
+import ru.dopaminka.usecases.task.GetTask
+import ru.dopaminka.usecases.task.RemoveIllustration
 
-class TaskSteps {
+class TaskSteps : En {
+    init {
+        And("есть задание") {
+            State.alphabetId =
+                CreateAlphabet(State.alphabetRepository).execute(Alphabet.Language.ru)
+            AddLetter(State.alphabetRepository).execute(
+                AddLetter.Params(
+                    State.alphabetId!!,
+                    "А",
+                    "a_sound.mp3"
+                )
+            )
+            val alphabet = GetAlphabet(State.alphabetRepository).execute(State.alphabetId!!)
+            val letter = alphabet.letters[0]
 
-    private val ILLUSTRATION = Illustration("image.jpg", "sound.mp3")
-
-    private var task: Task
-        get() = STATE["task"] as Task
-        set(value) {
-            STATE["task"] = value
+            State.taskId =
+                CreateLetterListeningTask(State.taskRepository).execute(
+                    CreateLetterListeningTask.Params(
+                        letter
+                    )
+                )
         }
+        When("админ создаёт задание") {
+            State.alphabetId =
+                CreateAlphabet(State.alphabetRepository).execute(Alphabet.Language.ru)
+            AddLetter(State.alphabetRepository).execute(
+                AddLetter.Params(
+                    State.alphabetId!!,
+                    "А",
+                    "a_sound.mp3"
+                )
+            )
+            val alphabet = GetAlphabet(State.alphabetRepository).execute(State.alphabetId!!)
+            val letter = alphabet.letters[0]
 
-    //GIVEN:
-
-    @Given("есть задание")
-    fun thereIsATask() {
-        task = object : Task(Identity.generate()) {}
-    }
-
-    @And("у задания есть иллюстрация")
-    fun theTaskContainsAnIllustration() {
-        task.addIllustration(ILLUSTRATION)
-    }
-
-    //WHEN:
-
-    @When("админ создаёт задание")
-    fun adminCreatesATask() {
-        task = object : Task(Identity.generate()) {}
-    }
-
-    @When("админ добавляет в задание иллюстрацию")
-    fun adminAddsAnIllustrationToTheTask() {
-        task.addIllustration(ILLUSTRATION)
-    }
-
-    @When("админ удаляет иллюстрацию")
-    fun adminRemovesTheIllustration() {
-        task.removeIllustrtion(ILLUSTRATION)
-    }
-
-    //THEN:
-
-    @Then("задание появляется")
-    fun theTaskAppears() {
-        assertNotNull(task)
-    }
-
-    @Then("в задании появляется иллюстрация")
-    fun theIllustrationsAppearsInTheTask() {
-        task.illustrations.contains(ILLUSTRATION)
-    }
-
-    @Then("иллюстрация пропадает из задания")
-    fun theIllustrationDisappearsFromTheTask() {
-        task.removeIllustrtion(ILLUSTRATION)
+            State.taskId =
+                CreateLetterListeningTask(State.taskRepository).execute(
+                    CreateLetterListeningTask.Params(
+                        letter
+                    )
+                )
+        }
+        Then("задание появляется") {
+            val task = GetTask(State.taskRepository).execute(State.taskId!!)
+            assertNotNull(task)
+        }
+        When("админ добавляет в задание иллюстрацию") {
+            AddIllustration(State.taskRepository).execute(
+                AddIllustration.Params(
+                    State.taskId!!,
+                    "image.png",
+                    "sound.mp3"
+                )
+            )
+        }
+        Then("в задании появляется иллюстрация") {
+            val task = GetTask(State.taskRepository).execute(State.taskId!!)
+            assertEquals(1, task.illustrations.size)
+        }
+        And("у задания есть иллюстрация") {
+            AddIllustration(State.taskRepository).execute(
+                AddIllustration.Params(
+                    State.taskId!!,
+                    "image.png",
+                    "sound.mp3"
+                )
+            )
+        }
+        When("админ удаляет иллюстрацию") {
+            RemoveIllustration(State.taskRepository).execute(
+                RemoveIllustration.Params(
+                    State.taskId!!,
+                    "image.png",
+                    "sound.mp3"
+                )
+            )
+        }
+        Then("иллюстрация пропадает из задания") {
+            val task = GetTask(State.taskRepository).execute(State.taskId!!)
+            assertEquals(0, task.illustrations.size)
+        }
     }
 }
