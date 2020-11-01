@@ -3,30 +3,30 @@ package ru.dopaminka.specification.steps
 import io.cucumber.java8.En
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dopaminka.specification.State
 import ru.dopaminka.usecases.lesson.GetLesson
 import ru.dopaminka.usecases.lessonProgress.CompleteTask
 
-class LessonProgressSteps : En {
+@KoinApiExtension
+class LessonProgressSteps : En, KoinComponent {
+
+    private val completeTask: CompleteTask by inject()
+    private val getLesson: GetLesson by inject()
+    private val state: State by inject()
+
     init {
         When("ученик завершает задание") {
-            CompleteTask(
-                State.lessonRepository,
-                State.taskRepository,
-                State.lessonProgressRepository
-            ).execute(CompleteTask.Params(State.lessonId!!, State.taskId!!))
+            completeTask.execute(CompleteTask.Params(state.lessonId!!, state.taskId!!))
         }
         Then("задание помечается как завершенное") {
-            State.lessonView =
-                GetLesson(
-                    State.lessonRepository,
-                    State.taskRepository,
-                    State.lessonProgressRepository
-                ).execute(State.lessonId!!)
-            assertTrue(State.lessonView!!.tasks[0].isCompleted)
+            state.lessonView = getLesson.execute(state.lessonId!!)
+            assertTrue(state.lessonView!!.tasks[0].isCompleted)
         }
         And("прогресс урока становится = {double}") { progress: Double ->
-            assertEquals(progress, State.lessonView!!.progress, 0.0001)
+            assertEquals(progress, state.lessonView!!.progress, 0.0001)
         }
     }
 }

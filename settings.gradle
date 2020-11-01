@@ -1,4 +1,4 @@
-include ':persistence'
+include ':repository'
 include ':usecases'
 include ':entity'
 include ':specification'

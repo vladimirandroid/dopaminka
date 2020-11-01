@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 @CucumberOptions(
     plugin = ["pretty"],
     features = ["src/main/raw/features"],
-    glue = ["ru.dopaminka.specification.steps", "ru.dopaminka.specification.steps.Hooks.java"]
+    glue = ["ru.dopaminka.specification.steps"]
 )
 
 class RunCucumberTest {

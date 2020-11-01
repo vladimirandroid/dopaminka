@@ -6,8 +6,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.context.startKoin
-import ru.dopaminka.di.repositoriesModule
-import ru.dopaminka.di.useCasesModule
+import ru.dopaminka.persistence.di.repositoriesModule
+import ru.dopaminka.usecases.di.useCasesModule
 
 class DopaminkaApplication : Application() {
 

@@ -1,4 +1,4 @@
-package ru.dopaminka.di
+package ru.dopaminka.persistence.di
 
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
