@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_lessons.*
 import org.koin.android.ext.android.get
 import ru.dopaminka.R
+import ru.dopaminka.congratulation.CongratulationActivity
 import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.usecases.lesson.GetLesson
 import ru.dopaminka.usecases.program.GetProgram
