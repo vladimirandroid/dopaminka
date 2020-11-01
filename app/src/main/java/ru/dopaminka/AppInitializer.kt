@@ -43,7 +43,13 @@ class AppInitializer : KoinComponent {
     private fun setUpLessons() {
         val tasks = get<GetUnassignedTasks>().execute(Unit)
 
-        val lessonId = get<CreateLesson>().execute(CreateLesson.Params("Первый урок"))
+        var lessonId = get<CreateLesson>().execute(CreateLesson.Params("Первый урок"))
+        get<AddTask>().execute(AddTask.Params(lessonId, tasks.first().id))
+
+        lessonId = get<CreateLesson>().execute(CreateLesson.Params("Второй урок"))
+        get<AddTask>().execute(AddTask.Params(lessonId, tasks.first().id))
+
+        lessonId = get<CreateLesson>().execute(CreateLesson.Params("Третий урок"))
         get<AddTask>().execute(AddTask.Params(lessonId, tasks.first().id))
 
         val lesson = get<GetLesson>().execute(lessonId)
