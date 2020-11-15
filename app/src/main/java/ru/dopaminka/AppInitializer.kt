@@ -4,26 +4,20 @@ import android.util.Log
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
-import ru.dopaminka.entity.Alphabet
-import ru.dopaminka.usecases.alphabet.AddLetter
-import ru.dopaminka.usecases.alphabet.CreateAlphabet
-import ru.dopaminka.usecases.alphabet.GetAlphabet
 import ru.dopaminka.usecases.lesson.AddTask
 import ru.dopaminka.usecases.lesson.CreateLesson
-import ru.dopaminka.usecases.lesson.GetLesson
+import ru.dopaminka.usecases.lesson.GetLessonTasks
 import ru.dopaminka.usecases.lesson.GetUnassignedLessons
 import ru.dopaminka.usecases.program.CreateProgram
-import ru.dopaminka.usecases.program.GetProgram
-import ru.dopaminka.usecases.program.SetProgramLessons
-import ru.dopaminka.usecases.task.AddIllustration
-import ru.dopaminka.usecases.task.CreateLetterListeningTask
+import ru.dopaminka.usecases.program.GetLessons
+import ru.dopaminka.usecases.program.SetLessons
+import ru.dopaminka.usecases.task.CreateListenTask
 import ru.dopaminka.usecases.task.GetTask
 import ru.dopaminka.usecases.task.GetUnassignedTasks
 
 @KoinApiExtension
 class AppInitializer : KoinComponent {
     fun initialize() {
-        setUpAlphabet()
         setUpTasks()
         setUpLessons()
         setUpProgram()
@@ -33,10 +27,10 @@ class AppInitializer : KoinComponent {
         val lessons = get<GetUnassignedLessons>().execute(Unit)
         val lessonsIds = lessons.map { it.id }
 
-        get<CreateProgram>().execute(Alphabet.Language.ru)
-        get<SetProgramLessons>().execute(SetProgramLessons.Params(Alphabet.Language.ru, lessonsIds))
+        get<CreateProgram>().execute(Unit)
+        get<SetLessons>().execute(SetLessons.Params(lessonsIds))
 
-        val programView = get<GetProgram>().execute(GetProgram.Params(Alphabet.Language.ru))
+        val programView = get<GetLessons>().execute(Unit)
         Log.d(TAG, "Program = $programView")
     }
 
@@ -52,73 +46,15 @@ class AppInitializer : KoinComponent {
         lessonId = get<CreateLesson>().execute(CreateLesson.Params("Третий урок"))
         get<AddTask>().execute(AddTask.Params(lessonId, tasks.first().id))
 
-        val lesson = get<GetLesson>().execute(lessonId)
+        val lesson = get<GetLessonTasks>().execute(lessonId)
         Log.d(TAG, "Lesson = $lesson")
     }
 
     private fun setUpTasks() {
-        val alphabet = get<GetAlphabet>().execute(Alphabet.idFromLanguage(Alphabet.Language.ru))
-
-        val createTask: CreateLetterListeningTask = get()
-        val taskId = createTask.execute(CreateLetterListeningTask.Params(alphabet.letters[0]))
-
-        get<AddIllustration>().execute(AddIllustration.Params(taskId, "01.mp3", "char_01.png"))
-
+        val createTask: CreateListenTask = get()
+        val taskId = createTask.execute(CreateListenTask.Params("char_01.png", "01.mp3"))
         val taskView = get<GetTask>().execute(taskId)
         Log.d(TAG, "Task = $taskView");
-    }
-
-    private fun setUpAlphabet() {
-        val createAlphabet: CreateAlphabet = get()
-        createAlphabet.execute(Alphabet.Language.ru)
-
-        val letters = arrayOf(
-            "А",
-            "Б",
-            "В",
-            "Г",
-            "Д",
-            "Е",
-            "Ё",
-            "Ж",
-            "З",
-            "И",
-            "Й",
-            "К",
-            "Л",
-            "М",
-            "Н",
-            "О",
-            "П",
-            "Р",
-            "С",
-            "Т",
-            "У",
-            "Ф",
-            "Х",
-            "Ц",
-            "Ч",
-            "Ш",
-            "Щ",
-            "Ъ",
-            "Ы",
-            "Ь",
-            "Э",
-            "Ю",
-            "Я"
-        )
-        for (i in 0..32) {
-            val addLetter: AddLetter = get()
-            addLetter.execute(
-                AddLetter.Params(
-                    Alphabet.idFromLanguage(Alphabet.Language.ru),
-                    letters[i],
-                )
-            )
-        }
-
-        val alphabetView = get<GetAlphabet>().execute(Alphabet.idFromLanguage(Alphabet.Language.ru))
-        Log.d("TAG", "Alphabet = $alphabetView")
     }
 
     companion object {

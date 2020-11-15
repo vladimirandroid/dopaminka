@@ -13,7 +13,6 @@ import ru.dopaminka.usecases.di.useCasesModule
 val testModule = module {
     single {
         State(
-            get(named("alphabet")),
             get(named("lessonProgress")),
             get(named("program")),
             get(named("lesson")),

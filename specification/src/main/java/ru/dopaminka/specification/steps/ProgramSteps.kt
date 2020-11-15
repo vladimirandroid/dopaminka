@@ -6,44 +6,41 @@ import org.junit.Assert.assertTrue
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import ru.dopaminka.entity.Alphabet
 import ru.dopaminka.specification.State
 import ru.dopaminka.usecases.program.CreateProgram
-import ru.dopaminka.usecases.program.GetProgram
-import ru.dopaminka.usecases.program.SetProgramLessons
+import ru.dopaminka.usecases.program.GetLessons
+import ru.dopaminka.usecases.program.SetLessons
 
 @KoinApiExtension
 class ProgramSteps : En, KoinComponent {
 
     private val state: State by inject()
     private val createProgram: CreateProgram by inject()
-    private val setProgramLessons: SetProgramLessons by inject()
-    private val getProgram: GetProgram by inject()
+    private val setLessons: SetLessons by inject()
+    private val getLessons: GetLessons by inject()
 
-    lateinit var programView: GetProgram.ProgramView
+    lateinit var lessons: List<GetLessons.LessonView>
 
     init {
-        Given("есть программа для русского языка") {
-            createProgram.execute(Alphabet.Language.ru)
+        Given("есть программа обучения") {
+            createProgram.execute(Unit)
         }
         And("урок входит в программу") {
-            setProgramLessons.execute(
-                SetProgramLessons.Params(
-                    Alphabet.Language.ru,
+            setLessons.execute(
+                SetLessons.Params(
                     listOf(state.lessonId!!)
                 )
             )
         }
-        When("ученик запрашивает программу для русского языка") {
-            programView = getProgram.execute(GetProgram.Params(Alphabet.Language.ru))
+        When("ученик запрашивает список уроков") {
+            lessons = getLessons.execute(Unit)
         }
-        Then("ученик видит программу: язык и список уроков") {
-            assertNotNull(programView)
-            assertTrue(programView.language.isNotEmpty())
-            assertTrue(programView.lessons.isNotEmpty())
+        Then("ученик видит список уроков") {
+            assertNotNull(lessons)
+            assertTrue(lessons.isNotEmpty())
         }
         And("для каждого урока ученик видит: идентификатор, заголовок") {
-            programView.lessons.forEach {
+            lessons.forEach {
                 assertTrue(it.title.isNotEmpty())
                 assertNotNull(it.id)
             }

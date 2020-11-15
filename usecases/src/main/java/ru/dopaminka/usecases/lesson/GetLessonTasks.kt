@@ -3,7 +3,7 @@ package ru.dopaminka.usecases.lesson
 import ru.dopaminka.entity.Lesson
 import ru.dopaminka.entity.LessonProgress
 import ru.dopaminka.entity.common.Identity
-import ru.dopaminka.entity.tasks.LetterListeningTask
+import ru.dopaminka.entity.tasks.ListenTask
 import ru.dopaminka.entity.tasks.Task
 import ru.dopaminka.usecases.Repository
 import ru.dopaminka.usecases.UseCase
@@ -11,12 +11,12 @@ import ru.dopaminka.usecases.UseCase
 /**
  * input = lesson title
  */
-class GetLesson(
+class GetLessonTasks(
     private val lessonRepository: Repository<Lesson>,
     private val taskRepository: Repository<Task>,
     private val lessonProgressRepository: Repository<LessonProgress>
 ) :
-    UseCase<Identity, GetLesson.LessonView>() {
+    UseCase<Identity, GetLessonTasks.LessonView>() {
 
     override fun execute(params: Identity): LessonView {
         val lesson = lessonRepository.get(params) ?: throw Exception("Lesson not found")
@@ -25,27 +25,16 @@ class GetLesson(
         val taskIds = lesson.tasksIds
         val tasks = taskRepository.get(taskIds)
         val tasksViews = tasks.map {
-            if (it is LetterListeningTask)
-                LetterListeningTaskView(
+            if (it is ListenTask)
+                ListenTaskView(
                     it.id,
-                    it.illustrations.map {
-                        IllustrationView(
-                            it.imageFileName,
-                            it.soundFileName
-                        )
-                    },
-                    lessonProgress.isTaskCompleted(it),
-                    it.letter
+                    it.image,
+                    it.sound,
+                    lessonProgress.isTaskCompleted(it)
                 )
             else
                 TaskView(
                     it.id,
-                    it.illustrations.map {
-                        IllustrationView(
-                            it.imageFileName,
-                            it.soundFileName
-                        )
-                    },
                     lessonProgress.isTaskCompleted(it)
                 )
         }
@@ -67,26 +56,23 @@ class GetLesson(
 
     open class TaskView(
         val id: Identity,
-        val illustrations: List<IllustrationView>,
         val isCompleted: Boolean
     ) {
         override fun toString(): String {
-            return "TaskView(id=$id, illustrations=$illustrations, isCompleted: $isCompleted)"
+            return "TaskView(id=$id, isCompleted: $isCompleted)"
         }
     }
 
-    class LetterListeningTaskView(
+    class ListenTaskView(
         id: Identity,
-        illustrations: List<IllustrationView>,
+        val image: String,
+        val sound: String,
         isCompleted: Boolean,
-        val letter: String
-    ) : TaskView(id, illustrations, isCompleted) {
+    ) : TaskView(id, isCompleted) {
         override fun toString(): String {
-            return "LetterListeningTaskView(id=$id, illustrations=$illustrations, isCompleted: $isCompleted, letter=$letter)"
+            return "LetterListeningTaskView(id=$id, image=$image, sound: $sound, isCompleted: $isCompleted)"
         }
     }
-
-    data class IllustrationView(val imageFileName: String, val soundFileName: String)
 }
 
 

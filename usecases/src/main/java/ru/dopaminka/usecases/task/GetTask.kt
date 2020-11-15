@@ -1,7 +1,8 @@
 package ru.dopaminka.usecases.task
 
 import ru.dopaminka.entity.common.Identity
-import ru.dopaminka.entity.tasks.LetterListeningTask
+import ru.dopaminka.entity.tasks.ListenAndSelectTask
+import ru.dopaminka.entity.tasks.ListenTask
 import ru.dopaminka.entity.tasks.Task
 import ru.dopaminka.usecases.Repository
 import ru.dopaminka.usecases.UseCase
@@ -14,29 +15,40 @@ class GetTask(private val taskRepository: Repository<Task>) :
 
     override fun execute(params: Identity): TaskView {
         val task = taskRepository.get(params) ?: throw Exception("Task not found")
-        if (task is LetterListeningTask) {
-            return LetterListeningTaskView(
+        if (task is ListenAndSelectTask) {
+            return ListenAndSelectTaskView(
                 task.id,
-                task.illustrations.map { IllustrationView(it.imageFileName, it.soundFileName) },
-                task.letter
+                task.image,
+                task.sound,
+                task.wrongImage
+            )
+        } else if (task is ListenTask) {
+            return ListenTaskView(
+                task.id,
+                task.image,
+                task.sound
             )
         }
-        return TaskView(
-            task.id,
-            task.illustrations.map { IllustrationView(it.imageFileName, it.soundFileName) })
+        return TaskView(task.id)
     }
 
-    open class TaskView(val id: Identity, val illustrations: List<IllustrationView>) {
-        override fun toString(): String {
-            return "TaskView(id=$id, illustrations=$illustrations)"
-        }
-    }
+    open class TaskView(val id: Identity)
 
-    class LetterListeningTaskView(
+    open class ListenTaskView(
         id: Identity,
-        illustrations: List<IllustrationView>,
-        val letter: String
-    ) : TaskView(id, illustrations)
+        val image: String,
+        val sound: String,
+    ) : TaskView(id) {
+        override fun toString() = "ListenTaskView(id: $id, image: $image, sound: $sound)"
+    }
 
-    data class IllustrationView(val imageFileName: String, val soundFileName: String)
+    class ListenAndSelectTaskView(
+        id: Identity,
+        image: String,
+        sound: String,
+        val wrongImage: String
+    ) : ListenTaskView(id, image, sound) {
+        override fun toString() =
+            "ListenTaskView(id: $id, image: $image, sound: $sound, wrongImage: $wrongImage)"
+    }
 }

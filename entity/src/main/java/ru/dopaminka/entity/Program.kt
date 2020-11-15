@@ -3,7 +3,7 @@ package ru.dopaminka.entity
 import ru.dopaminka.entity.common.Entity
 import ru.dopaminka.entity.common.Identity
 
-class Program(id: Identity, val language: Alphabet.Language) : Entity(id) {
+class Program(id: Identity) : Entity(id) {
     private val _lessonsIds = mutableListOf<Identity>()
     val lessonsIds: List<Identity>
         get() = _lessonsIds

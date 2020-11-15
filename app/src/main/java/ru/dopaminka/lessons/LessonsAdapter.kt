@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.dopaminka.R
-import ru.dopaminka.usecases.program.GetProgram
+import ru.dopaminka.usecases.program.GetLessons
 
 class LessonsAdapter(
-    private val lessons: List<GetProgram.LessonView>,
-    private val onClick: (GetProgram.LessonView) -> Unit
+    private val lessons: List<GetLessons.LessonView>,
+    private val onClick: (GetLessons.LessonView) -> Unit
 ) :
     RecyclerView.Adapter<LessonsAdapter.LessonViewHolder>() {
 
@@ -29,13 +29,13 @@ class LessonsAdapter(
     inner class LessonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val title: TextView by lazy { itemView.findViewById(R.id.title) }
-        private lateinit var lesson: GetProgram.LessonView
+        private lateinit var lesson: GetLessons.LessonView
 
         init {
             title.setOnClickListener { onClick(lesson) }
         }
 
-        fun bind(lesson: GetProgram.LessonView) {
+        fun bind(lesson: GetLessons.LessonView) {
             this.lesson = lesson
             title.text = lesson.title
         }
