@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LetterActivity">
+    tools:context=".listenTask.ListenTaskFragment">
 
     <ImageView
+        android:id="@+id/illustration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/char_02"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/img_letter" />
+        android:src="@drawable/char_02" />
 
     <Button
+        android:id="@+id/finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="--->"
-        android:id="@+id/right" />
+        android:text="--->" />
 
 </LinearLayout>
