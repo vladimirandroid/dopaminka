@@ -6,8 +6,9 @@ import org.junit.runner.RunWith
 
 @RunWith(Cucumber::class)
 @CucumberOptions(
+
     plugin = ["pretty"],
-    features = ["src/main/raw/features"],
+    features = ["src/main/res/raw/features"],
     glue = ["ru.dopaminka.specification.steps"]
 )
 

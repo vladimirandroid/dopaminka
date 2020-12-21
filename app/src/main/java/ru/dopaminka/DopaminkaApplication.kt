@@ -24,6 +24,5 @@ class DopaminkaApplication : Application() {
         }
 
         Log.d("asd", "initialize app")
-        AppInitializer().initialize()
     }
 }

@@ -7,66 +7,59 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_listen_task.*
-import org.koin.android.ext.android.get
 import ru.dopaminka.R
-import ru.dopaminka.entity.common.Identity
-import ru.dopaminka.story.TaskCompleteListener
-import ru.dopaminka.usecases.task.GetTask
+import ru.dopaminka.entity.program.Lesson
+import ru.dopaminka.entity.readingProgram.ListenTask
+import ru.dopaminka.utils.Pronouncer
 
 class ListenTaskFragment : Fragment() {
-    private val player = MediaPlayer()
+    private val pronouncer: Pronouncer by lazy { Pronouncer(activity!!.assets, MediaPlayer()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_listen_task, container, false);
+        return inflater.inflate(R.layout.fragment_listen_task, container, false)
     }
 
     override fun onStart() {
         val task = getTask()
 
-        val imageId = resources.getIdentifier(
-            task.image,
-            "drawable",
-            context!!.getPackageName()
-        )
+//        val imageId = resources.getIdentifier(
+//            task.image,
+//            "drawable",
+//            context!!.getPackageName()
+//        )
 
-        illustration.setImageResource(imageId)
+//        illustration.setImageResource(imageId)
 
         illustration.setOnClickListener {
-            if (player.isPlaying) player.stop()
-
-            val file = context!!.assets.openFd(task.sound)
-            player.reset()
-
-            player.setDataSource(file.fileDescriptor, file.startOffset, file.length)
-            file.close()
-            player.prepare()
-            player.start()
+            pronouncer.pronounce(task.text)
         }
 
         finish.setOnClickListener {
-            (activity as TaskCompleteListener).onCompleteTask(task.id)
+//            (activity as TaskCompleteListener).onCompleteTask(task.id)
         }
         super.onStart()
     }
 
     override fun onDestroy() {
-        if (player.isPlaying) player.release();
+        pronouncer.release()
         super.onDestroy()
     }
 
-    private fun getTask() = get<GetTask>().execute(getTaskId()) as GetTask.ListenTaskView
-    private fun getTaskId() = arguments!!.getSerializable(taskIdKey) as Identity
+    private fun getTask() = arguments!!.getSerializable(taskKey) as ListenTask
+    private fun getLesson() = arguments!!.getSerializable(lessonKey) as Lesson
 
     companion object {
-        const val taskIdKey = "taskIdKey"
-        fun create(taskId: Identity): Fragment {
+        const val taskKey = "taskKey"
+        const val lessonKey = "lessonKey"
+        fun create(task: ListenTask, lesson: Lesson): Fragment {
             val fragment = ListenTaskFragment()
             fragment.arguments = Bundle().apply {
-                putSerializable(taskIdKey, taskId)
+                putSerializable(taskKey, task)
+                putSerializable(lessonKey, lesson)
             }
             return fragment
         }

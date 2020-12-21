@@ -1,0 +1,223 @@
+{
+  "letters": [
+    {
+      "text": "А",
+      "sound": "01.mp3",
+      "shapes": [
+        {
+          "points": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 5,
+              "y": 9
+            },
+            {
+              "x": 8,
+              "y": 1
+            }
+          ]
+        },
+        {
+          "points": [
+            {
+              "x": 3.5,
+              "y": 5
+            },
+            {
+              "x": 6.5,
+              "y": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Б",
+      "sound": "02.mp3",
+      "shapes": []
+    },
+    {
+      "text": "В",
+      "sound": "03.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Г",
+      "sound": "04.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Д",
+      "sound": "05.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Е",
+      "sound": "06.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ё",
+      "sound": "07.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ж",
+      "sound": "08.mp3",
+      "shapes": []
+    },
+    {
+      "text": "З",
+      "sound": "09.mp3",
+      "shapes": []
+    },
+    {
+      "text": "И",
+      "sound": "10.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Й",
+      "sound": "11.mp3",
+      "shapes": []
+    },
+    {
+      "text": "К",
+      "sound": "12.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Л",
+      "sound": "13.mp3",
+      "shapes": []
+    },
+    {
+      "text": "М",
+      "sound": "14.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Н",
+      "sound": "15.mp3",
+      "shapes": []
+    },
+    {
+      "text": "О",
+      "sound": "16.mp3",
+      "shapes": []
+    },
+    {
+      "text": "П",
+      "sound": "17.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Р",
+      "sound": "18.mp3",
+      "shapes": []
+    },
+    {
+      "text": "С",
+      "sound": "19.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Т",
+      "sound": "20.mp3",
+      "shapes": []
+    },
+    {
+      "text": "У",
+      "sound": "21.mp3",
+      "shapes": [
+        {
+          "points": [
+            {
+              "x": 2,
+              "y": 9
+            },
+            {
+              "x": 5,
+              "y": 5
+            }
+          ]
+        },
+        {
+          "points": [
+            {
+              "x": 8,
+              "y": 9
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Ф",
+      "sound": "22.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Х",
+      "sound": "23.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ц",
+      "sound": "24.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ч",
+      "sound": "25.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ш",
+      "sound": "26.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Щ",
+      "sound": "27.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ъ",
+      "sound": "28.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ы",
+      "sound": "29.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ь",
+      "sound": "30.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Э",
+      "sound": "31.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Ю",
+      "sound": "32.mp3",
+      "shapes": []
+    },
+    {
+      "text": "Я",
+      "sound": "33.mp3",
+      "shapes": []
+    }
+  ]
+}

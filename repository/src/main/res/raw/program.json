@@ -1,0 +1,164 @@
+{
+  "lessons": [
+    {
+      "tasks": [
+        {
+          "type": "listen",
+          "text": {
+            "type": "letter",
+            "text": "А"
+          }
+        },
+        {
+          "type": "drawText",
+          "text": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "А"
+              }
+            ]
+          }
+        },
+        {
+          "type": "listen",
+          "text": {
+            "type": "letter",
+            "text": "У"
+          }
+        },
+        {
+          "type": "drawText",
+          "text": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "У"
+              },
+              {
+                "type": "letter",
+                "text": "У"
+              },
+              {
+                "type": "letter",
+                "text": "У"
+              }
+            ]
+          }
+        },
+        {
+          "type": "joinTwoLetters",
+          "letter1": {
+            "text": "А"
+          },
+          "letter2": {
+            "text": "У"
+          },
+          "result": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "У"
+              }
+            ]
+          }
+        },
+        {
+          "type": "joinTwoLetters",
+          "letter1": {
+            "text": "У"
+          },
+          "letter2": {
+            "text": "А"
+          },
+          "result": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "У"
+              },
+              {
+                "type": "letter",
+                "text": "А"
+              }
+            ]
+          }
+        },
+        {
+          "type": "listenAndSelectText",
+          "rightText": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "У"
+              }
+            ]
+          },
+          "wrongText": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "У"
+              },
+              {
+                "type": "letter",
+                "text": "О"
+              }
+            ]
+          }
+        },
+        {
+          "type": "listenAndSelectText",
+          "rightText": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "У"
+              },
+              {
+                "type": "letter",
+                "text": "А"
+              }
+            ]
+          },
+          "wrongText": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "П"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
