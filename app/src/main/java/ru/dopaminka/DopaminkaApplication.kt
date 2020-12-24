@@ -7,6 +7,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.context.startKoin
 import ru.dopaminka.persistence.di.repositoriesModule
+import ru.dopaminka.readable.di.readablePronunciationModule
 import ru.dopaminka.usecases.di.useCasesModule
 
 class DopaminkaApplication : Application() {
@@ -20,7 +21,7 @@ class DopaminkaApplication : Application() {
             //inject Android context
             androidContext(this@DopaminkaApplication)
             // use modules
-            modules(repositoriesModule, useCasesModule)
+            modules(repositoriesModule, useCasesModule, readablePronunciationModule)
         }
 
         Log.d("asd", "initialize app")

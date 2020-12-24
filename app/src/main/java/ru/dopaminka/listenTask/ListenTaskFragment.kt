@@ -10,10 +10,13 @@ import kotlinx.android.synthetic.main.fragment_listen_task.*
 import ru.dopaminka.R
 import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.ListenTask
+import ru.dopaminka.readable.ReadablePronunciationFragment
 import ru.dopaminka.utils.Pronouncer
 
 class ListenTaskFragment : Fragment() {
     private val pronouncer: Pronouncer by lazy { Pronouncer(activity!!.assets, MediaPlayer()) }
+    private val task: ListenTask by lazy { arguments!!.getSerializable(taskKey) as ListenTask }
+    private val lesson: Lesson by lazy { arguments!!.getSerializable(lessonKey) as Lesson }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,18 +27,15 @@ class ListenTaskFragment : Fragment() {
     }
 
     override fun onStart() {
-        val task = getTask()
 
-//        val imageId = resources.getIdentifier(
-//            task.image,
-//            "drawable",
-//            context!!.getPackageName()
-//        )
-
-//        illustration.setImageResource(imageId)
-
-        illustration.setOnClickListener {
-            pronouncer.pronounce(task.text)
+        if (shouldAddReadableFragment()) {
+            childFragmentManager.beginTransaction()
+                .add(
+                    R.id.readableContainer,
+                    ReadablePronunciationFragment.create(task.text),
+                    "readable"
+                )
+                .commit()
         }
 
         finish.setOnClickListener {
@@ -44,13 +44,13 @@ class ListenTaskFragment : Fragment() {
         super.onStart()
     }
 
+    private fun shouldAddReadableFragment() =
+        childFragmentManager.findFragmentByTag("readable") == null
+
     override fun onDestroy() {
         pronouncer.release()
         super.onDestroy()
     }
-
-    private fun getTask() = arguments!!.getSerializable(taskKey) as ListenTask
-    private fun getLesson() = arguments!!.getSerializable(lessonKey) as Lesson
 
     companion object {
         const val taskKey = "taskKey"

@@ -11,7 +11,7 @@ import ru.dopaminka.specification.di.testModule
 import ru.dopaminka.usecases.di.useCasesModule
 import java.io.File
 
-class SpecificationRawFileTextProvider : RawFileTextProvider {
+class SpecificationRawFileTextProviderImpl : RawFileTextProvider {
 
     override fun get(id: Int): String {
         val projectDir = File("").absoluteFile.parentFile
