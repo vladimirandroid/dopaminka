@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".listenTask.ListenTaskFragment">
+    tools:context=".tasks.listen.ListenTaskFragment">
 
     <FrameLayout
         android:id="@+id/readableContainer"

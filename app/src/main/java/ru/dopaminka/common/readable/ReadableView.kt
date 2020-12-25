@@ -1,9 +1,11 @@
-package ru.dopaminka.readable
+package ru.dopaminka.common.readable
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
+import androidx.core.view.children
 import ru.dopaminka.entity.reading.*
 
 class ReadableView @JvmOverloads constructor(
@@ -15,8 +17,10 @@ class ReadableView @JvmOverloads constructor(
         gravity = Gravity.CENTER
     }
 
-    fun highlight(progress: Float) {
-        //TODO
+    fun highlight(atomicPosition: Int, duration: Int) {
+        Log.d("DOPALOG", "ReadableView highlight atomicPosition=$atomicPosition duration=$duration")
+        val atomics = children.filterIsInstance<AtomicTextView>().toList()
+        atomics[atomicPosition].highlight(duration)
     }
 
     fun setReadable(readable: Readable) {
@@ -28,28 +32,21 @@ class ReadableView @JvmOverloads constructor(
 
     private fun getCharacterViewsForReadable(readable: Readable): List<CharacterView> {
         return when (readable) {
-            is Letter -> listOf(CharacterView(context).apply { text = readable.text })
-            is Syllable -> getCharacterViewsForSyllable(readable)
-            is Word -> getCharacterViewsForWord(readable)
-            is Text -> getCharacterViewsForText(readable)
+            is Word -> getViews(readable)
+            is Text -> getViews(readable)
             is Unpronounceable -> listOf(CharacterView(context).apply { text = readable.text })
-            is AtomicText -> emptyList() //can't be
+            is AtomicText -> listOf(AtomicTextView(context).apply { atomicText = readable })
         }
     }
 
-    private fun getCharacterViewsForText(text: Text): List<CharacterView> {
+    private fun getViews(text: Text): List<CharacterView> {
         return text.readables.map { getCharacterViewsForReadable(it) }.flatten()
     }
 
-    private fun getCharacterViewsForSyllable(syllable: Syllable): MutableList<CharacterView> {
-        return syllable.letters.map {
-            CharacterView(context).apply { text = it.text }
-        }.toMutableList()
-    }
-
-    private fun getCharacterViewsForWord(word: Word): MutableList<CharacterView> {
+    private fun getViews(word: Word): MutableList<CharacterView> {
         return word.syllables.map {
-            val list = getCharacterViewsForSyllable(it)
+            val list: MutableList<CharacterView> =
+                mutableListOf(AtomicTextView(context).apply { atomicText = it })
             if (it != word.syllables.last()) {
                 list.add(CharacterView(context).apply { text = "-" })
             }

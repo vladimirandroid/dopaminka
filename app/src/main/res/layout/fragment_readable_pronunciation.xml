@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <ru.dopaminka.readable.ReadableView
+    <ru.dopaminka.common.readable.ReadableView
         android:id="@+id/readableView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

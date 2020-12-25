@@ -1,6 +1,5 @@
-package ru.dopaminka.listenTask
+package ru.dopaminka.tasks.listen
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,9 @@ import kotlinx.android.synthetic.main.fragment_listen_task.*
 import ru.dopaminka.R
 import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.ListenTask
-import ru.dopaminka.readable.ReadablePronunciationFragment
-import ru.dopaminka.utils.Pronouncer
+import ru.dopaminka.common.pronunciationFragment.ReadablePronunciationFragment
 
 class ListenTaskFragment : Fragment() {
-    private val pronouncer: Pronouncer by lazy { Pronouncer(activity!!.assets, MediaPlayer()) }
     private val task: ListenTask by lazy { arguments!!.getSerializable(taskKey) as ListenTask }
     private val lesson: Lesson by lazy { arguments!!.getSerializable(lessonKey) as Lesson }
 
@@ -46,11 +43,6 @@ class ListenTaskFragment : Fragment() {
 
     private fun shouldAddReadableFragment() =
         childFragmentManager.findFragmentByTag("readable") == null
-
-    override fun onDestroy() {
-        pronouncer.release()
-        super.onDestroy()
-    }
 
     companion object {
         const val taskKey = "taskKey"

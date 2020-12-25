@@ -1,6 +1,7 @@
-package ru.dopaminka.readable
+package ru.dopaminka.common.pronunciationFragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,14 @@ class ReadablePronunciationFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.onStart()
+        viewModel.pronunciationEvent.observe(this) {
+            it.getIfNotConsumed()?.let { pronunciationEvent ->
+                readableView.highlight(
+                    pronunciationEvent.atomicPosition,
+                    pronunciationEvent.duration
+                )
+            }
+        }
     }
 
     companion object {

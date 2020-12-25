@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.koin.android.ext.android.inject
 import ru.dopaminka.R
 import ru.dopaminka.entity.readingProgram.ListenTask
-import ru.dopaminka.listenTask.ListenTaskFragment
+import ru.dopaminka.tasks.listen.ListenTaskFragment
 import ru.dopaminka.usecases.ProgramProvider
 
 class StoryActivity : AppCompatActivity() {

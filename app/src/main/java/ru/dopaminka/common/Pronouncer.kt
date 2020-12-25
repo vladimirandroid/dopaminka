@@ -1,21 +1,27 @@
-package ru.dopaminka.utils
+package ru.dopaminka.common
 
 import android.content.res.AssetManager
 import android.media.MediaPlayer
-import ru.dopaminka.entity.reading.*
+import ru.dopaminka.entity.reading.AtomicText
+import ru.dopaminka.entity.reading.Readable
 
-class Pronouncer(private val assets: AssetManager, private val player: MediaPlayer) :
+class Pronouncer(
+    private val assets: AssetManager,
+    private val player: MediaPlayer,
+    private val readableToAtomicsConverter: ReadableToAtomicsConverter
+) :
     MediaPlayer.OnCompletionListener {
 
     private lateinit var atomicTexts: List<AtomicText>
     private var currentIndex: Int = 0
+    var listener: AtomicTextPronouncingListener? = null
 
     init {
         player.setOnCompletionListener(this)
     }
 
     fun pronounce(readable: Readable) {
-        atomicTexts = getAtomicTexts(readable)
+        atomicTexts = readableToAtomicsConverter.convert(readable)
         if (atomicTexts.isEmpty()) return
 
         currentIndex = 0
@@ -34,24 +40,17 @@ class Pronouncer(private val assets: AssetManager, private val player: MediaPlay
         player.reset()
         player.setDataSource(file.fileDescriptor, file.startOffset, file.length)
         player.prepare()
+        listener?.onStart(player.duration, currentIndex)
         file.close()
         player.start()
     }
 
-    private fun getAtomicTexts(readable: Readable): List<AtomicText> {
-        return when (readable) {
-            is AtomicText -> listOf(readable)
-            is Word -> getAtomicTexts(readable)
-            is Text -> getAtomicTexts(readable)
-            is Unpronounceable -> emptyList()
-        }
-    }
-
-    private fun getAtomicTexts(text: Text) = text.readables.map { getAtomicTexts(it) }.flatten()
-
-    private fun getAtomicTexts(word: Word) = word.syllables
 
     fun release() {
         player.release()
     }
+}
+
+interface AtomicTextPronouncingListener {
+    fun onStart(duration: Int, atomicPosition: Int)
 }

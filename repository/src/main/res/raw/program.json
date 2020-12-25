@@ -5,8 +5,21 @@
         {
           "type": "listen",
           "text": {
-            "type": "letter",
-            "text": "А"
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "Б"
+              },
+              {
+                "type": "letter",
+                "text": "Ю"
+              }
+            ]
           }
         },
         {
