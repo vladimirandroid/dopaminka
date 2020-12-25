@@ -9,6 +9,7 @@ import org.koin.core.component.inject
 import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.program.Program
 import ru.dopaminka.entity.reading.Letter
+import ru.dopaminka.entity.readingProgram.DrawTextTask
 import ru.dopaminka.entity.readingProgram.ListenAndSelectTextTask
 import ru.dopaminka.entity.readingProgram.ListenTask
 import ru.dopaminka.specification.TestProgramProvider
@@ -42,19 +43,22 @@ class ProgramSteps : En, KoinComponent {
             val lesson = programProvider.get().lessons[lessonNumber]
             val tasks = lesson.tasks as MutableList
             for (i in 1..tasksCount) {
-                if (taskType == "_прослушать_и_выбрать_текст_") {
-                    tasks.add(
+                when (taskType) {
+                    "_прослушать_и_выбрать_текст_" -> tasks.add(
                         ListenAndSelectTextTask(
                             Letter("", "", emptyList()),
                             Letter("", "", emptyList())
                         )
                     )
-                } else if (taskType == "_прослушать_") {
-                    tasks.add(
+                    "_прослушать_" -> tasks.add(
                         ListenTask(
                             Letter("", "", emptyList())
                         )
                     )
+                    "_обвести_текст_" -> tasks.add(
+                        DrawTextTask(Letter("", "", emptyList()))
+                    )
+
                 }
             }
         }

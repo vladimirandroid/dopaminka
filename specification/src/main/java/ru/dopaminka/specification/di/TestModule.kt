@@ -10,7 +10,7 @@ val testModule = module {
     single<ProgramProvider>(override = true) {
         TestProgramProvider()
     }
-    single<RawFileTextProvider> {
+    single<RawFileTextProvider>(override = true) {
         SpecificationRawFileTextProviderImpl()
     }
 }
