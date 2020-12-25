@@ -2,7 +2,6 @@ package ru.dopaminka.common.readable
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.core.view.children
@@ -18,7 +17,6 @@ class ReadableView @JvmOverloads constructor(
     }
 
     fun highlight(atomicPosition: Int, duration: Int) {
-        Log.d("DOPALOG", "ReadableView highlight atomicPosition=$atomicPosition duration=$duration")
         val atomics = children.filterIsInstance<AtomicTextView>().toList()
         atomics[atomicPosition].highlight(duration)
     }

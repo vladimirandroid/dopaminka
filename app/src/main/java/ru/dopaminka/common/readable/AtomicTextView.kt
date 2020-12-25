@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import ru.dopaminka.entity.reading.AtomicText
 
@@ -19,8 +18,6 @@ open class AtomicTextView @JvmOverloads constructor(
         }
 
     fun highlight(duration: Int) {
-        Log.d("DOPALOG", "AtomicText.highlight duration=$duration")
-
         val growX = ObjectAnimator
             .ofFloat(this, View.SCALE_X, 1f, 1.5f)
             .setDuration((duration / 2).toLong())

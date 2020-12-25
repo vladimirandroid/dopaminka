@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_listen_task.*
 import ru.dopaminka.R
+import ru.dopaminka.common.pronunciationFragment.ReadablePronunciationFragment
 import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.ListenTask
-import ru.dopaminka.common.pronunciationFragment.ReadablePronunciationFragment
+import ru.dopaminka.tasks.TaskFragment
 
-class ListenTaskFragment : Fragment() {
+class ListenTaskFragment : TaskFragment() {
     private val task: ListenTask by lazy { arguments!!.getSerializable(taskKey) as ListenTask }
     private val lesson: Lesson by lazy { arguments!!.getSerializable(lessonKey) as Lesson }
 
@@ -36,7 +37,7 @@ class ListenTaskFragment : Fragment() {
         }
 
         finish.setOnClickListener {
-//            (activity as TaskCompleteListener).onCompleteTask(task.id)
+            onTaskCompleted()
         }
         super.onStart()
     }

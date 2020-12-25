@@ -1,7 +1,7 @@
 package ru.dopaminka.tasks.draw
 
-import androidx.fragment.app.Fragment
+import ru.dopaminka.tasks.TaskFragment
 
-class DrawTextTaskFragment : Fragment() {
+class DrawTextTaskFragment : TaskFragment() {
 
 }

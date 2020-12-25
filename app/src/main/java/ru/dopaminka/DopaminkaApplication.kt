@@ -1,7 +1,6 @@
 package ru.dopaminka
 
 import android.app.Application
-import android.util.Log
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.component.KoinApiExtension
@@ -23,7 +22,5 @@ class DopaminkaApplication : Application() {
             // use modules
             modules(repositoriesModule, useCasesModule, uiModule)
         }
-
-        Log.d("asd", "initialize app")
     }
 }

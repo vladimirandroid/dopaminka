@@ -1,7 +1,6 @@
 package ru.dopaminka.common.pronunciationFragment
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,10 +27,6 @@ class ReadablePronunciationViewModel(
     }
 
     override fun onStart(duration: Int, atomicPosition: Int) {
-        Log.d(
-            "DOPALOG",
-            "ReadablePronunciationViewModel onStart duration=$duration, atomicPosition=$atomicPosition"
-        )
         val liveData = (pronunciationEvent as MutableLiveData)
         liveData.postValue(
             ConsumableEvent(PronunciationEvent(duration, atomicPosition))
