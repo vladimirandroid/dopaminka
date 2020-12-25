@@ -8,7 +8,7 @@ class Pronouncer(private val assets: AssetManager, private val player: MediaPlay
     MediaPlayer.OnCompletionListener {
 
     private lateinit var atomicTexts: List<AtomicText>
-    private lateinit var currentAtomicText: AtomicText
+    private var currentIndex: Int = 0
 
     init {
         player.setOnCompletionListener(this)
@@ -16,16 +16,17 @@ class Pronouncer(private val assets: AssetManager, private val player: MediaPlay
 
     fun pronounce(readable: Readable) {
         atomicTexts = getAtomicTexts(readable)
-        currentAtomicText = atomicTexts.first()
-        playAtomicText(currentAtomicText)
+        if (atomicTexts.isEmpty()) return
+
+        currentIndex = 0
+        playAtomicText(atomicTexts[currentIndex])
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
-        if (currentAtomicText != atomicTexts.last()) {
-            val index = atomicTexts.indexOf(currentAtomicText) + 1
-            currentAtomicText = atomicTexts[index]
-            playAtomicText(currentAtomicText)
-        }
+        if (currentIndex + 1 == atomicTexts.size) return
+
+        currentIndex++
+        playAtomicText(atomicTexts[currentIndex])
     }
 
     private fun playAtomicText(atomicText: AtomicText) {
