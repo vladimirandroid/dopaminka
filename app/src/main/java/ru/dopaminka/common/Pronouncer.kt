@@ -14,7 +14,7 @@ class Pronouncer(
 
     private lateinit var atomicTexts: List<AtomicText>
     private var currentIndex: Int = 0
-    var listener: AtomicTextPronouncingListener? = null
+    var listener: Listener? = null
 
     init {
         player.setOnCompletionListener(this)
@@ -49,8 +49,15 @@ class Pronouncer(
     fun release() {
         player.release()
     }
+
+    abstract class Listener {
+        open fun onStart(duration: Int, atomicPosition: Int) {
+
+        }
+
+        open fun onFinish() {
+
+        }
+    }
 }
 
-interface AtomicTextPronouncingListener {
-    fun onStart(duration: Int, atomicPosition: Int)
-}

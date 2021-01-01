@@ -12,7 +12,7 @@ import ru.dopaminka.entity.reading.Letter
 import ru.dopaminka.entity.readingProgram.DrawTextTask
 import ru.dopaminka.entity.readingProgram.ListenAndSelectTextTask
 import ru.dopaminka.entity.readingProgram.ListenTask
-import ru.dopaminka.specification.TestProgramProvider
+import ru.dopaminka.specification.SpecificationProgramProvider
 import ru.dopaminka.usecases.ProgramProvider
 import ru.dopaminka.usecases.ProgressProvider
 import ru.dopaminka.usecases.task.AnswerToListenAndSelectTextTask
@@ -31,7 +31,7 @@ class CompletingTasksSteps : En, KoinComponent {
             val lesson = Lesson(listOf(task))
             val program = Program(listOf(lesson))
 
-            val programProvider = programProvider as TestProgramProvider
+            val programProvider = programProvider as SpecificationProgramProvider
             programProvider.program = program
         }
         When("ученик завершает {int} задание в {int} уроке") { taskNumber: Int, lessonNumber: Int ->

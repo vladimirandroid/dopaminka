@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import ru.dopaminka.entity.program.Lesson
+import ru.dopaminka.entity.program.Task
 import ru.dopaminka.entity.readingProgram.*
 import ru.dopaminka.tasks.TaskFragment
+import ru.dopaminka.tasks.draw.DrawTextTaskFragment
 import ru.dopaminka.tasks.listen.ListenTaskFragment
 
 class LessonAdapter(val lesson: Lesson, fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -21,7 +23,7 @@ class LessonAdapter(val lesson: Lesson, fragment: Fragment) : FragmentStateAdapt
         return when (task) {
             is ListenTask -> ListenTaskFragment.create(task, lesson)
             is ListenAndSelectTextTask -> StubFragment("ListenAndSelectTextTask")
-            is DrawTextTask -> StubFragment("DrawTextTask")
+            is DrawTextTask -> DrawTextTaskFragment.create(task, lesson)
             is InsertMissingLetterTask -> StubFragment("InsertMissingLetterTask")
             is JoinTwoLettersTask -> StubFragment("JoinTwoLettersTask")
             is ReadAndSelectImageTask -> StubFragment("ReadAndSelectImageTask")
@@ -30,7 +32,7 @@ class LessonAdapter(val lesson: Lesson, fragment: Fragment) : FragmentStateAdapt
     }
 }
 
-class StubFragment(val title: String) : TaskFragment() {
+class StubFragment(val title: String) : TaskFragment<Task>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

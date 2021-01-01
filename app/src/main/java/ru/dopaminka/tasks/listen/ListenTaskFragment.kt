@@ -12,9 +12,7 @@ import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.ListenTask
 import ru.dopaminka.tasks.TaskFragment
 
-class ListenTaskFragment : TaskFragment() {
-    private val task: ListenTask by lazy { arguments!!.getSerializable(taskKey) as ListenTask }
-    private val lesson: Lesson by lazy { arguments!!.getSerializable(lessonKey) as Lesson }
+class ListenTaskFragment : TaskFragment<ListenTask>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

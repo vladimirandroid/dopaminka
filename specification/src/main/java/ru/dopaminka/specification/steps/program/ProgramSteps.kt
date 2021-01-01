@@ -12,7 +12,7 @@ import ru.dopaminka.entity.reading.Letter
 import ru.dopaminka.entity.readingProgram.DrawTextTask
 import ru.dopaminka.entity.readingProgram.ListenAndSelectTextTask
 import ru.dopaminka.entity.readingProgram.ListenTask
-import ru.dopaminka.specification.TestProgramProvider
+import ru.dopaminka.specification.SpecificationProgramProvider
 import ru.dopaminka.usecases.ProgramProvider
 
 @KoinApiExtension
@@ -26,7 +26,7 @@ class ProgramSteps : En, KoinComponent {
         Given("есть программа") {
             val program = Program(mutableListOf())
 
-            val programProvider = programProvider as TestProgramProvider
+            val programProvider = programProvider as SpecificationProgramProvider
             programProvider.program = program
         }
         Given("в программе {int} уроков") { count: Int ->
