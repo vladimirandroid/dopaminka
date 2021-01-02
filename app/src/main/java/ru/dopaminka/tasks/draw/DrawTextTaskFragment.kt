@@ -20,6 +20,14 @@ class DrawTextTaskFragment : TaskFragment<DrawTextTask>(), DrawTextView.Complete
     private val pronouncer: Pronouncer by inject()
     private val completeDrawTextTask: CompleteDrawTextTask by inject()
 
+
+    override fun stop() {
+        pronouncer.release()
+    }
+
+    override fun start() {
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,5 +71,4 @@ class DrawTextTaskFragment : TaskFragment<DrawTextTask>(), DrawTextView.Complete
             return fragment
         }
     }
-
 }

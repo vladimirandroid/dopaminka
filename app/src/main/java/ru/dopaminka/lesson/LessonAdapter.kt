@@ -14,6 +14,7 @@ import ru.dopaminka.entity.readingProgram.*
 import ru.dopaminka.tasks.TaskFragment
 import ru.dopaminka.tasks.draw.DrawTextTaskFragment
 import ru.dopaminka.tasks.listen.ListenTaskFragment
+import ru.dopaminka.tasks.listenAndSelectText.ListenAndSelectTextTaskFragment
 
 class LessonAdapter(val lesson: Lesson, fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount() = lesson.tasks.size
@@ -22,7 +23,7 @@ class LessonAdapter(val lesson: Lesson, fragment: Fragment) : FragmentStateAdapt
         val task = lesson.tasks[position]
         return when (task) {
             is ListenTask -> ListenTaskFragment.create(task, lesson)
-            is ListenAndSelectTextTask -> StubFragment("ListenAndSelectTextTask")
+            is ListenAndSelectTextTask -> ListenAndSelectTextTaskFragment.create(lesson, task)
             is DrawTextTask -> DrawTextTaskFragment.create(task, lesson)
             is InsertMissingLetterTask -> StubFragment("InsertMissingLetterTask")
             is JoinTwoLettersTask -> StubFragment("JoinTwoLettersTask")
@@ -30,21 +31,28 @@ class LessonAdapter(val lesson: Lesson, fragment: Fragment) : FragmentStateAdapt
             else -> throw IllegalArgumentException("Unknown task type")
         }
     }
-}
 
-class StubFragment(val title: String) : TaskFragment<Task>() {
+    class StubFragment(val title: String) : TaskFragment<Task>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return TextView(context).apply {
-            setTextColor(Color.BLUE)
-            textSize = 30f
-            text = title
-            setOnClickListener { onTaskCompleted() }
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View {
+            return TextView(context).apply {
+                setTextColor(Color.BLUE)
+                textSize = 30f
+                text = title
+                setOnClickListener { onTaskCompleted() }
+            }
         }
-    }
 
+        override fun stop() {
+        }
+
+        override fun start() {
+        }
+
+    }
 }
+

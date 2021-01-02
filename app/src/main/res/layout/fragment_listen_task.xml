@@ -6,8 +6,8 @@
     android:orientation="vertical"
     tools:context=".tasks.listen.ListenTaskFragment">
 
-    <FrameLayout
-        android:id="@+id/readableContainer"
+    <ru.dopaminka.common.readable.ReadableView
+        android:id="@+id/readableView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

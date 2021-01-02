@@ -1,23 +1,20 @@
 package ru.dopaminka.common
 
-import android.content.res.AssetManager
-import android.media.MediaPlayer
 import ru.dopaminka.entity.reading.AtomicText
 import ru.dopaminka.entity.reading.Readable
 
 class Pronouncer(
-    private val assets: AssetManager,
-    private val player: MediaPlayer,
+    private val player: AssetAudioPlayer,
     private val readableToAtomicsConverter: ReadableToAtomicsConverter
-) :
-    MediaPlayer.OnCompletionListener {
+) {
 
     private lateinit var atomicTexts: List<AtomicText>
     private var currentIndex: Int = 0
     var listener: Listener? = null
 
     init {
-        player.setOnCompletionListener(this)
+        player.completeListener = this::onComplete
+        player.startListener = this::onStart
     }
 
     fun pronounce(readable: Readable) {
@@ -28,7 +25,11 @@ class Pronouncer(
         playAtomicText(atomicTexts[currentIndex])
     }
 
-    override fun onCompletion(mp: MediaPlayer?) {
+    private fun onStart(duration: Int) {
+        listener?.onStart(duration, currentIndex)
+    }
+
+    private fun onComplete() {
         if (currentIndex + 1 == atomicTexts.size) return
 
         currentIndex++
@@ -36,13 +37,7 @@ class Pronouncer(
     }
 
     private fun playAtomicText(atomicText: AtomicText) {
-        val file = assets.openFd(atomicText.sound)
-        player.reset()
-        player.setDataSource(file.fileDescriptor, file.startOffset, file.length)
-        player.prepare()
-        listener?.onStart(player.duration, currentIndex)
-        file.close()
-        player.start()
+        player.play(atomicText.sound)
     }
 
 
