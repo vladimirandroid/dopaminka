@@ -13,17 +13,9 @@ import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.ListenTask
 import ru.dopaminka.tasks.TaskFragment
 
-class ListenTaskFragment : TaskFragment<ListenTask>() {
+class ListenTaskFragment : TaskFragment<ListenTask>(R.layout.fragment_listen_task) {
 
     private val pronouncer: Pronouncer by inject()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_listen_task, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

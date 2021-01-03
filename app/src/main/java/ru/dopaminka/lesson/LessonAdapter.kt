@@ -12,7 +12,7 @@ import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.program.Task
 import ru.dopaminka.entity.readingProgram.*
 import ru.dopaminka.tasks.TaskFragment
-import ru.dopaminka.tasks.draw.DrawTextTaskFragment
+import ru.dopaminka.tasks.drawText.DrawTextTaskFragment
 import ru.dopaminka.tasks.listen.ListenTaskFragment
 import ru.dopaminka.tasks.listenAndSelectText.ListenAndSelectTextTaskFragment
 

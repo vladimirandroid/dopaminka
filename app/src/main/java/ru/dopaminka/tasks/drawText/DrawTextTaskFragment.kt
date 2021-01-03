@@ -1,4 +1,4 @@
-package ru.dopaminka.tasks.draw
+package ru.dopaminka.tasks.drawText
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,10 +12,10 @@ import ru.dopaminka.common.Pronouncer
 import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.DrawTextTask
 import ru.dopaminka.tasks.TaskFragment
-import ru.dopaminka.tasks.draw.drawTextView.DrawTextView
+import ru.dopaminka.tasks.drawText.drawTextView.DrawTextView
 import ru.dopaminka.usecases.task.CompleteDrawTextTask
 
-class DrawTextTaskFragment : TaskFragment<DrawTextTask>(), DrawTextView.CompleteListener {
+class DrawTextTaskFragment : TaskFragment<DrawTextTask>(R.layout.fragment_draw_task), DrawTextView.CompleteListener {
 
     private val pronouncer: Pronouncer by inject()
     private val completeDrawTextTask: CompleteDrawTextTask by inject()
@@ -26,14 +26,6 @@ class DrawTextTaskFragment : TaskFragment<DrawTextTask>(), DrawTextView.Complete
     }
 
     override fun start() {
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_draw_task, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

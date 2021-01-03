@@ -15,7 +15,7 @@ import ru.dopaminka.entity.readingProgram.ListenAndSelectTextTask
 import ru.dopaminka.tasks.TaskFragment
 import kotlin.random.Random
 
-class ListenAndSelectTextTaskFragment : TaskFragment<ListenAndSelectTextTask>() {
+class ListenAndSelectTextTaskFragment : TaskFragment<ListenAndSelectTextTask>(R.layout.fragment_listen_and_select_text) {
 
     private val pronouncer: Pronouncer by inject()
     private val audioPlayer: AssetAudioPlayer by inject()
@@ -28,14 +28,6 @@ class ListenAndSelectTextTaskFragment : TaskFragment<ListenAndSelectTextTask>() 
 
     override fun start() {
         pronouncer.pronounce(task.rightText)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_listen_and_select_text, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

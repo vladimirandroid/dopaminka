@@ -1,4 +1,4 @@
-package ru.dopaminka.tasks.draw.drawTextView.prompt
+package ru.dopaminka.tasks.drawText.drawTextView.prompt
 
 import android.graphics.Canvas
 import android.graphics.Color

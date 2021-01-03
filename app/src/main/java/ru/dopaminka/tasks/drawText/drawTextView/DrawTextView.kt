@@ -1,13 +1,13 @@
-package ru.dopaminka.tasks.draw.drawTextView
+package ru.dopaminka.tasks.drawText.drawTextView
 
 import android.content.Context
 import android.graphics.Canvas
 import android.view.MotionEvent
 import android.view.View
 import ru.dopaminka.entity.reading.*
-import ru.dopaminka.tasks.draw.drawTextView.prompt.PromptAnimator
+import ru.dopaminka.tasks.drawText.drawTextView.prompt.PromptAnimator
 
-class DrawTextView(context: Context, val readable: Readable) : View(context) {
+class DrawTextView(context: Context, readable: Readable) : View(context) {
 
     var listener: CompleteListener? = null
     val isCompleted: Boolean

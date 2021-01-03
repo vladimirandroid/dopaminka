@@ -1,4 +1,4 @@
-package ru.dopaminka.tasks.draw.drawTextView
+package ru.dopaminka.tasks.drawText.drawTextView
 
 import ru.dopaminka.entity.reading.Point
 
