@@ -3,7 +3,9 @@ package ru.dopaminka.tasks.joinTwoLetters
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_join_two_letters_task.*
+import org.koin.android.ext.android.inject
 import ru.dopaminka.R
+import ru.dopaminka.common.Pronouncer
 import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.JoinTwoLettersTask
 import ru.dopaminka.tasks.TaskFragment
@@ -11,10 +13,15 @@ import ru.dopaminka.tasks.TaskFragment
 class JoinTwoLettersTaskFragment :
     TaskFragment<JoinTwoLettersTask>(R.layout.fragment_join_two_letters_task) {
 
+    private val pronouncer: Pronouncer by inject()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         letter1.setReadable(task.letter1)
         letter2.setReadable(task.letter2)
+        joinView.completeListener = {
+            pronouncer.pronounce(task.result)
+        }
     }
 
     override fun stop() {

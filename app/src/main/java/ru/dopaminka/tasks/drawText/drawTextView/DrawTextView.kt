@@ -26,7 +26,6 @@ class DrawTextView(context: Context, readable: Readable) : View(context) {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (_isCompleted) return false
-
         return fingerDrawer.onTouch(event)
     }
 

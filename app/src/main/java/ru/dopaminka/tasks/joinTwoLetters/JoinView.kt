@@ -1,13 +1,14 @@
 package ru.dopaminka.tasks.joinTwoLetters
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Size
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
 
 
@@ -15,13 +16,10 @@ class JoinView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val heightPx by lazy {
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            heightDp.toFloat(),
-            resources.displayMetrics
-        ).toInt()
-    }
+    var completeListener: (() -> Unit)? = null
+    val isCompleted: Boolean
+        get() = fingerDrawer.isCompleted
+
     private val radiusPx by lazy {
         TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -29,9 +27,12 @@ class JoinView @JvmOverloads constructor(
             resources.displayMetrics
         )
     }
-    private val promptPaint = Paint().apply {
-        color = Color.RED
-        style = Paint.Style.FILL
+    private val lineWidthPx by lazy {
+        TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            lineWidthDp.toFloat(),
+            resources.displayMetrics
+        )
     }
     private val progressCirclePaint = Paint().apply {
         color = Color.YELLOW
@@ -48,31 +49,32 @@ class JoinView @JvmOverloads constructor(
         pathEffect = DashPathEffect(floatArrayOf(20f, 40f), 0f)
         strokeWidth = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            lineWidth.toFloat(),
+            lineWidthPx,
             resources.displayMetrics
         )
     }
     private val completedLinePaint = Paint().apply {
         color = Color.GREEN
         style = Paint.Style.STROKE
+        strokeCap = Paint.Cap.ROUND
         strokeWidth = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            lineWidth.toFloat(),
+            lineWidthPx,
             resources.displayMetrics
         )
     }
-
-    private var isCompleted = false
+    private val promptDrawer by lazy { PromptDrawer(radiusPx, radiusPx) { invalidate() } }
+    private val fingerDrawer by lazy {
+        FingerDrawer(
+            radiusPx,
+            lineWidthPx,
+            { completeListener?.invoke() },
+            Size(0, 0)
+        )
+    }
 
     init {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
-    }
-
-    private val animator = ValueAnimator.ofFloat(0f, 1f).apply {
-        duration = 2000
-        repeatMode = ValueAnimator.RESTART
-        repeatCount = ValueAnimator.INFINITE
-        addUpdateListener { invalidate() }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -90,9 +92,24 @@ class JoinView @JvmOverloads constructor(
             canvas.drawCircle(right, y, radiusPx, progressCirclePaint)
             canvas.drawLine(left, y, right, y, progressLinePaint)
 
-            val position = left + allowedWidth * (animator.animatedValue as Float)
-            canvas.drawCircle(position, y, radiusPx, promptPaint)
+            promptDrawer.draw(canvas)
+            if (isCompleted) {
+                canvas.drawLine(left, y, right, y, completedLinePaint)
+            } else {
+                fingerDrawer.draw(canvas)
+            }
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (isCompleted) return false
+        fingerDrawer.onTouch(event!!)
+        return true
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        fingerDrawer.size = Size(w, h)
     }
 
     override fun onAttachedToWindow() {
@@ -106,23 +123,17 @@ class JoinView @JvmOverloads constructor(
     }
 
     private fun stopPrompt() {
-        animator.cancel()
+        promptDrawer.stop()
     }
 
     private fun startPromptIfNotCompleted() {
         if (isCompleted) return
 
-        animator.start()
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val heightSpec = MeasureSpec.makeMeasureSpec(heightPx, MeasureSpec.EXACTLY)
-        super.onMeasure(widthMeasureSpec, heightSpec)
+        promptDrawer.start()
     }
 
     companion object {
-        private const val heightDp = 20
-        private const val radiusDp = heightDp / 2
-        private const val lineWidth = 5
+        private const val radiusDp = 10
+        private const val lineWidthDp = 5
     }
 }
