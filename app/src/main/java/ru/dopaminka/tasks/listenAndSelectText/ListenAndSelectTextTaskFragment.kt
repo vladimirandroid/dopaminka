@@ -1,11 +1,9 @@
 package ru.dopaminka.tasks.listenAndSelectText
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_listen_and_select_text.*
+import kotlinx.android.synthetic.main.fragment_listen_and_select_text_task.*
 import org.koin.android.ext.android.inject
 import ru.dopaminka.R
 import ru.dopaminka.common.AssetAudioPlayer
@@ -15,7 +13,8 @@ import ru.dopaminka.entity.readingProgram.ListenAndSelectTextTask
 import ru.dopaminka.tasks.TaskFragment
 import kotlin.random.Random
 
-class ListenAndSelectTextTaskFragment : TaskFragment<ListenAndSelectTextTask>(R.layout.fragment_listen_and_select_text) {
+class ListenAndSelectTextTaskFragment :
+    TaskFragment<ListenAndSelectTextTask>(R.layout.fragment_listen_and_select_text_task) {
 
     private val pronouncer: Pronouncer by inject()
     private val audioPlayer: AssetAudioPlayer by inject()
@@ -38,7 +37,9 @@ class ListenAndSelectTextTaskFragment : TaskFragment<ListenAndSelectTextTask>(R.
         text1.setOnClickListener { if (isFirstTextRight) right() else wrong() }
         text2.setOnClickListener { if (isFirstTextRight) wrong() else right() }
 
-        finish.setOnClickListener { if (isAnswered) onTaskCompleted() }
+        finish.setOnClickListener {
+            if (isAnswered) onTaskCompleted()
+        }
     }
 
     private fun right() {

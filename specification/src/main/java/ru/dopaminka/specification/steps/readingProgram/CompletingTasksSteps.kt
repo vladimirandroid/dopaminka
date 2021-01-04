@@ -9,15 +9,12 @@ import org.koin.core.component.inject
 import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.program.Program
 import ru.dopaminka.entity.reading.Letter
-import ru.dopaminka.entity.readingProgram.DrawTextTask
 import ru.dopaminka.entity.readingProgram.ListenAndSelectTextTask
 import ru.dopaminka.entity.readingProgram.ListenTask
 import ru.dopaminka.specification.SpecificationProgramProvider
+import ru.dopaminka.usecases.CompleteTask
 import ru.dopaminka.usecases.ProgramProvider
 import ru.dopaminka.usecases.ProgressProvider
-import ru.dopaminka.usecases.task.AnswerToListenAndSelectTextTask
-import ru.dopaminka.usecases.task.CompleteDrawTextTask
-import ru.dopaminka.usecases.task.CompleteListenTask
 
 @KoinApiExtension
 class CompletingTasksSteps : En, KoinComponent {
@@ -57,41 +54,11 @@ class CompletingTasksSteps : En, KoinComponent {
         }
 
 
-        When("ученик завершает {int} задание в {int} уроке типа {string}") { taskNumber: Int, lessonNumber: Int, taskType: String ->
+        When("ученик завершает {int} задание в {int} уроке") { taskNumber: Int, lessonNumber: Int ->
             val lesson = programProvider.get().lessons[lessonNumber]
-            when (taskType) {
-                "_прослушать_и_выбрать_текст_" -> {
-                    val task = lesson.tasks[taskNumber] as ListenAndSelectTextTask
-                    val completer: AnswerToListenAndSelectTextTask by inject()
-                    completer.execute(
-                        AnswerToListenAndSelectTextTask.Params(
-                            lesson,
-                            task,
-                            task.rightText
-                        )
-                    )
-                }
-                "_прослушать_" -> {
-                    val task = lesson.tasks[taskNumber] as ListenTask
-                    val completer: CompleteListenTask by inject()
-                    completer.execute(
-                        CompleteListenTask.Params(
-                            lesson,
-                            task,
-                        )
-                    )
-                }
-                "_обвести_текст_" -> {
-                    val task = lesson.tasks[taskNumber] as DrawTextTask
-                    val completer: CompleteDrawTextTask by inject()
-                    completer.execute(
-                        CompleteDrawTextTask.Params(
-                            lesson,
-                            task,
-                        )
-                    )
-                }
-            }
+            val task = lesson.tasks[taskNumber] as ListenAndSelectTextTask
+            val completer: CompleteTask by inject()
+            completer.execute(CompleteTask.Params(lesson, task))
         }
     }
 }

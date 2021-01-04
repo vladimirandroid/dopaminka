@@ -1,11 +1,10 @@
 package ru.dopaminka.tasks.drawText
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_draw_task.*
+import kotlinx.android.synthetic.main.fragment_draw_text_task.*
 import org.koin.android.ext.android.inject
 import ru.dopaminka.R
 import ru.dopaminka.common.Pronouncer
@@ -13,12 +12,11 @@ import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.readingProgram.DrawTextTask
 import ru.dopaminka.tasks.TaskFragment
 import ru.dopaminka.tasks.drawText.drawTextView.DrawTextView
-import ru.dopaminka.usecases.task.CompleteDrawTextTask
 
-class DrawTextTaskFragment : TaskFragment<DrawTextTask>(R.layout.fragment_draw_task), DrawTextView.CompleteListener {
+class DrawTextTaskFragment : TaskFragment<DrawTextTask>(R.layout.fragment_draw_text_task),
+    DrawTextView.CompleteListener {
 
     private val pronouncer: Pronouncer by inject()
-    private val completeDrawTextTask: CompleteDrawTextTask by inject()
 
 
     override fun stop() {
@@ -47,7 +45,6 @@ class DrawTextTaskFragment : TaskFragment<DrawTextTask>(R.layout.fragment_draw_t
     }
 
     override fun onComplete() {
-        completeDrawTextTask.execute(CompleteDrawTextTask.Params(lesson, task))
         pronouncer.pronounce(task.text)
     }
 

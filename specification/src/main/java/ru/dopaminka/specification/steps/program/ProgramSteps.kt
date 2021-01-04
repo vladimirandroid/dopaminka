@@ -10,6 +10,7 @@ import ru.dopaminka.entity.program.Lesson
 import ru.dopaminka.entity.program.Program
 import ru.dopaminka.entity.reading.Letter
 import ru.dopaminka.entity.readingProgram.DrawTextTask
+import ru.dopaminka.entity.readingProgram.JoinTwoLettersTask
 import ru.dopaminka.entity.readingProgram.ListenAndSelectTextTask
 import ru.dopaminka.entity.readingProgram.ListenTask
 import ru.dopaminka.specification.SpecificationProgramProvider
@@ -57,6 +58,13 @@ class ProgramSteps : En, KoinComponent {
                     )
                     "_обвести_текст_" -> tasks.add(
                         DrawTextTask(Letter("", "", emptyList()))
+                    )
+                    "_соединить_две_буквы_" -> tasks.add(
+                        JoinTwoLettersTask(
+                            Letter("", "", emptyList()),
+                            Letter("", "", emptyList()),
+                            Letter("", "", emptyList()),
+                        )
                     )
 
                 }

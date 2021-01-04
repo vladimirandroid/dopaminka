@@ -1,9 +1,7 @@
 package ru.dopaminka.tasks.listen
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_listen_task.*
 import org.koin.android.ext.android.inject
@@ -26,7 +24,9 @@ class ListenTaskFragment : TaskFragment<ListenTask>(R.layout.fragment_listen_tas
         }
         readableView.setReadable(task.text)
         readableView.setOnClickListener { pronouncer.pronounce(task.text) }
-        finish.setOnClickListener { onTaskCompleted() }
+        finish.setOnClickListener {
+            onTaskCompleted()
+        }
     }
 
     override fun stop() {

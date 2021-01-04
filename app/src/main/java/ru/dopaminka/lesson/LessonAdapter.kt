@@ -13,6 +13,7 @@ import ru.dopaminka.entity.program.Task
 import ru.dopaminka.entity.readingProgram.*
 import ru.dopaminka.tasks.TaskFragment
 import ru.dopaminka.tasks.drawText.DrawTextTaskFragment
+import ru.dopaminka.tasks.joinTwoLetters.JoinTwoLettersTaskFragment
 import ru.dopaminka.tasks.listen.ListenTaskFragment
 import ru.dopaminka.tasks.listenAndSelectText.ListenAndSelectTextTaskFragment
 
@@ -26,7 +27,7 @@ class LessonAdapter(val lesson: Lesson, fragment: Fragment) : FragmentStateAdapt
             is ListenAndSelectTextTask -> ListenAndSelectTextTaskFragment.create(lesson, task)
             is DrawTextTask -> DrawTextTaskFragment.create(task, lesson)
             is InsertMissingLetterTask -> StubFragment("InsertMissingLetterTask")
-            is JoinTwoLettersTask -> StubFragment("JoinTwoLettersTask")
+            is JoinTwoLettersTask -> JoinTwoLettersTaskFragment.create(task, lesson)
             is ReadAndSelectImageTask -> StubFragment("ReadAndSelectImageTask")
             else -> throw IllegalArgumentException("Unknown task type")
         }

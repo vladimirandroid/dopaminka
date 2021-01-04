@@ -3,60 +3,6 @@
     {
       "tasks": [
         {
-          "type": "listen",
-          "text": {
-            "type": "letter",
-            "text": "А"
-          }
-        },
-        {
-          "type": "drawText",
-          "text": {
-            "type": "text",
-            "readables": [
-              {
-                "type": "letter",
-                "text": "А"
-              },
-              {
-                "type": "letter",
-                "text": "А"
-              },
-              {
-                "type": "letter",
-                "text": "А"
-              }
-            ]
-          }
-        },
-        {
-          "type": "listen",
-          "text": {
-            "type": "letter",
-            "text": "У"
-          }
-        },
-        {
-          "type": "drawText",
-          "text": {
-            "type": "text",
-            "readables": [
-              {
-                "type": "letter",
-                "text": "У"
-              },
-              {
-                "type": "letter",
-                "text": "У"
-              },
-              {
-                "type": "letter",
-                "text": "У"
-              }
-            ]
-          }
-        },
-        {
           "type": "joinTwoLetters",
           "letter1": {
             "text": "А"
@@ -70,6 +16,60 @@
               {
                 "type": "letter",
                 "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "У"
+              }
+            ]
+          }
+        },
+        {
+          "type": "listen",
+          "text": {
+            "type": "letter",
+            "text": "А"
+          }
+        },
+        {
+          "type": "drawText",
+          "text": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "А"
+              },
+              {
+                "type": "letter",
+                "text": "А"
+              }
+            ]
+          }
+        },
+        {
+          "type": "listen",
+          "text": {
+            "type": "letter",
+            "text": "У"
+          }
+        },
+        {
+          "type": "drawText",
+          "text": {
+            "type": "text",
+            "readables": [
+              {
+                "type": "letter",
+                "text": "У"
+              },
+              {
+                "type": "letter",
+                "text": "У"
               },
               {
                 "type": "letter",
