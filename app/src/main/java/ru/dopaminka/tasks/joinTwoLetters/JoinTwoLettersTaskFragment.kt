@@ -14,14 +14,17 @@ class JoinTwoLettersTaskFragment :
     TaskFragment<JoinTwoLettersTask>(R.layout.fragment_join_two_letters_task) {
 
     private val pronouncer: Pronouncer by inject()
+    private var isCompleted = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         letter1.setReadable(task.letter1)
         letter2.setReadable(task.letter2)
         joinView.completeListener = {
+            isCompleted = true
             pronouncer.pronounce(task.result)
         }
+        finish.setOnClickListener { if (isCompleted) onTaskCompleted() }
     }
 
     override fun stop() {

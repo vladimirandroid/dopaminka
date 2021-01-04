@@ -46,10 +46,10 @@ class JoinView @JvmOverloads constructor(
     private val progressLinePaint = Paint().apply {
         color = Color.YELLOW
         style = Paint.Style.STROKE
-        pathEffect = DashPathEffect(floatArrayOf(20f, 40f), 0f)
+        pathEffect = DashPathEffect(floatArrayOf(50f, 20f), 0f)
         strokeWidth = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            lineWidthPx,
+            lineWidthPx/2,
             resources.displayMetrics
         )
     }
