@@ -1,0 +1,21 @@
+{
+  "chapters": [
+    {
+      "image": "intro01.jpg",
+      "voice": "intro01.mp3"
+    },
+    {
+      "image": "intro02.jpg",
+      "voice": "intro02.mp3"
+    },
+    {
+      "image": "intro03.jpg",
+      "voice": "intro03.mp3",
+      "lesson": "0"
+    },
+    {
+      "image": "intro04.jpg",
+      "voice": "intro04.mp3"
+    }
+  ]
+}

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.android.ext.android.inject
 import ru.dopaminka.R
-import ru.dopaminka.entity.readingProgram.ListenTask
 import ru.dopaminka.lesson.LessonFragment
 import ru.dopaminka.usecases.ProgramProvider
 
@@ -26,13 +25,4 @@ class StoryActivity : AppCompatActivity() {
     }
 
     private fun shouldAddTask() = supportFragmentManager.findFragmentByTag("lesson") == null
-
-
-//    override fun onCompleteTask(taskId: Identity) {
-//        next()
-//    }
 }
-
-//interface TaskCompleteListener {
-//    fun onCompleteTask(taskId: Identity)
-//}

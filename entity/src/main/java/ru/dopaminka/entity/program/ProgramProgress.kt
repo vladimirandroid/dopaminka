@@ -1,6 +1,6 @@
 package ru.dopaminka.entity.program
 
-class Progress(
+class ProgramProgress(
     private var _currentLesson: Lesson,
     private var _currentTask: Task,
     private var _isProgramCompleted: Boolean,

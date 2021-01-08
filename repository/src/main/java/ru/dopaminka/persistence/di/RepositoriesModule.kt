@@ -4,15 +4,14 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.annotation.RawRes
 import org.koin.dsl.module
-import ru.dopaminka.persistence.ProgramProviderImpl
-import ru.dopaminka.persistence.ProgressProviderImpl
-import ru.dopaminka.persistence.RawFileTextProvider
-import ru.dopaminka.usecases.ProgramProvider
-import ru.dopaminka.usecases.ProgressProvider
+import ru.dopaminka.persistence.*
+import ru.dopaminka.usecases.*
 
 val repositoriesModule = module {
     single<ProgramProvider> { ProgramProviderImpl(get()) }
-    single<ProgressProvider> { ProgressProviderImpl(get<ProgramProvider>().get()) }
+    single<StoryProvider> { StoryProviderImpl(get<ProgramProvider>().get(), get()) }
+    single<StoryProgressProvider> { get<StoryProgressRepository>() }
+    single<StoryProgressRepository> { StoryProgressRepositoryImpl(get<StoryProvider>().get()) }
     single<RawFileTextProvider> {
         object : RawFileTextProvider {
             override fun get(id: Int) = get<Context>().resources.getRawTextFile(id)
