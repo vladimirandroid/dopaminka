@@ -1,21 +1,29 @@
 {
-  "chapters": [
+  "fragments": [
     {
-      "image": "intro01.jpg",
-      "voice": "intro01.mp3"
-    },
-    {
-      "image": "intro02.jpg",
-      "voice": "intro02.mp3"
-    },
-    {
-      "image": "intro03.jpg",
-      "voice": "intro03.mp3",
+      "pivotX": 0.5,
+      "pivotY": 0.5,
+      "image": "intro01",
+      "voice": "test.mp3",
       "lesson": "0"
     },
     {
-      "image": "intro04.jpg",
-      "voice": "intro04.mp3"
+      "pivotX": 0.5,
+      "pivotY": 0.5,
+      "image": "intro02",
+      "voice": "test.mp3"
+    },
+    {
+      "pivotX": 0.5,
+      "pivotY": 0.5,
+      "image": "intro03",
+      "voice": "test.mp3"
+    },
+    {
+      "pivotX": 0.5,
+      "pivotY": 0.65,
+      "image": "intro04",
+      "voice": "test.mp3"
     }
   ]
 }

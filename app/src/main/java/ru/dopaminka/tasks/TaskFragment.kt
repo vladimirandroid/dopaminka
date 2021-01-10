@@ -12,8 +12,8 @@ import ru.dopaminka.lesson.LessonFragment
 
 abstract class TaskFragment<T : Task>(@LayoutRes private val layoutId: Int? = null) : Fragment() {
 
-    protected val task: T by lazy { arguments!!.getSerializable(taskKey) as T }
-    protected val lesson: Lesson by lazy { arguments!!.getSerializable(lessonKey) as Lesson }
+    val task: T by lazy { arguments!!.getSerializable(taskKey) as T }
+    val lesson: Lesson by lazy { arguments!!.getSerializable(lessonKey) as Lesson }
 
     abstract fun stop()
     abstract fun start()
